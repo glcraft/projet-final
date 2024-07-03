@@ -8,12 +8,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
+import { CarouselComponent } from './carousel/carousel.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CardComponent } from './card/card.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarouselComponent,
+    NavbarComponent,
+    CardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
