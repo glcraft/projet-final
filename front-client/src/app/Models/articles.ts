@@ -8,7 +8,7 @@ export class Articles {
     descript: string;
     marque: string;
     resume: string;
-    date_ajout: Date;
-    archive: Date;
+    date_ajout: string;
+    archive: string;
     tags: Array<Tags>;
 }
