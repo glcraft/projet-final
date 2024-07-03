@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SearchService } from '@app/Services/search.service';
+import { dataCards } from '../data/data.js';
 
 @Component({
   selector: 'app-card',
@@ -7,11 +9,30 @@ import { Component } from '@angular/core';
 })
 
 export class CardComponent {
-  cards = [
-    { title: 'Card title 1', text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', src:'https://placeholderimage.eu/api' },
-    { title: 'Card title 2', text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', src: 'https://placeholderimage.eu/api' },
-    { title: 'Card title 3', text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', src: 'https://placeholderimage.eu/api' },
-    { title: 'Card title 4', text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', src: 'https://placeholderimage.eu/api' },
-    { title: 'Card title 5', text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', src: 'https://placeholderimage.eu/api' },
-  ];
+  cards;
+  searchValue: string = '';
+
+  constructor(private searchService: SearchService) { }
+
+  ngOnInit() {
+    this.searchService.searchValue$.subscribe(value => {
+      this.searchValue = value;
+
+      // filter cards on title == searchValue
+
+      this.cards = dataCards;
+      this.cards = this.cards.filter(card => card.title.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        card.text.toLowerCase().includes(this.searchValue.toLowerCase()));
+
+
+      // Faites quelque chose avec la valeur de recherche, comme filtrer une liste d'articles
+    });
+  }
+
+
+
+
+
+
+
 }

@@ -12,6 +12,9 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
+import { ProductComponent } from './product/product.component';
+import { BasketComponent } from './basket/basket.component';
+ 
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { HomeComponent } from './home/home.component';
     CarouselComponent,
     NavbarComponent,
     CardComponent,
-    HomeComponent
+    HomeComponent,
+    ProductComponent,
+    BasketComponent,
+ 
   ],
   imports: [
     BrowserModule,
