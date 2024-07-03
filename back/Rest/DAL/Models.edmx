@@ -196,7 +196,7 @@
           <Property Name="resume" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="date_dajout" Type="DateTime" Precision="3" />
           <Property Name="archive" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PanierLignes" Relationship="Self.FK__PanierLig__id_ar__1DE57479" FromRole="Articles" ToRole="PanierLignes" />
+          <NavigationProperty Name="PanierLignes" Relationship="Self.FK__PanierLig__id_ar__1DE57479" FromRole="Articles" ToRole="PanierLignes" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Tags" Relationship="Self.TagsArticle" FromRole="Articles" ToRole="Tags" />
         </EntityType>
         <EntityType Name="Clients">

@@ -32,7 +32,7 @@ namespace Rest.DAL
         public Nullable<System.DateTime> archive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PanierLignes> PanierLignes { get; set; }
+        public virtual ICollection<PanierLignes> PanierLignes { internal get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tags> Tags { get; set; }
     }
