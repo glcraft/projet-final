@@ -10,7 +10,7 @@ export class Articles {
     resume: string;
     date_dajout: string;
     archive: string;
-    tags: Array<Tags>;
+    Tags: Array<Tags>;
 
     constructor(id: number, nom: string, prix: number, img: string, option: ArticlesOptions = {}) {
         this.id = id;

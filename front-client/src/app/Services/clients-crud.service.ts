@@ -48,6 +48,6 @@ export class ClientsCrudService {
 
   LoginClient(email: string, pwd: string)
   {
-    return this.http.get<Clients>(`${env.baseDomainApi}/api/Article/?email=" + email + "&password=` +pwd).toPromise().catch();
+    return this.http.get<Clients>(`${env.baseDomainApi}/api/Client/?email=${email}&password=${pwd}`).toPromise().catch();
   }
 }

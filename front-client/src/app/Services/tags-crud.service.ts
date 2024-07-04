@@ -15,8 +15,13 @@ export class TagsCrudService {
     return this.http.get<Array<Tags>>(`${env.baseDomainApi}/api/Tag`).toPromise().catch();
   }
 
-  GetTagsById(id: number)
+  GetTagById(id: number)
   {
-    return this.http.get<Tags>(`${env.baseDomainApi}/api/Tag` + id).toPromise().catch();
+    return this.http.get<Tags>(`${env.baseDomainApi}/api/Tag/${id}`).toPromise().catch();
+  }
+
+  GetTagByNom(nom: string)
+  {
+    return this.http.get<Tags>(`${env.baseDomainApi}/api/Tag?nom=${nom}`).toPromise().catch();
   }
 }

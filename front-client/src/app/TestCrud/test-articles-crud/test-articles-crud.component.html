@@ -1,0 +1,66 @@
+<p>test-articles-crud works!</p>
+
+<h1>Test</h1>
+
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <table class="table table-hover mb-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Marque</th>
+                    <th>Resume</th>
+                    <th>Date d'ajout</th>
+                    <th>Archivage</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of listeA">
+                    <td>
+                        {{a.id}}
+                    </td>
+                    <td>
+                        {{a.nom}}
+                    </td>
+                    <td>
+                        {{a.prix}}
+                    </td>
+                    <td>
+                        {{a.image}}
+                    </td>
+                    <td>
+                        {{a.description}}
+                    </td>
+                    <td>
+                        {{a.marque}}
+                    </td>
+                    <td>
+                        {{a.resume}}
+                    </td>
+                    <td>
+                        {{a.date_dajout}}
+                    </td>
+                    <td>
+                        {{a.archive}}
+                    </td>
+                    <td *ngFor="let t of a.Tags">
+                        {{t.nom}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h3>Test récup d'un article via son id : </h3>
+            Article : {{article1.nom}} {{article1.prix}} {{article1.marque}}
+        </div>
+        <div>
+            <h3>Test récup d'un article via son nom : </h3>
+            Article : {{article2.nom}} {{article2.prix}} {{article2.marque}}
+        </div>
+    </div>
+</div>
