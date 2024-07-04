@@ -1,0 +1,54 @@
+<p>test-articles-crud works!</p>
+
+<h1>Test</h1>
+
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <table class="table table-hover mb-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Marque</th>
+                    <th>Resume</th>
+                    <th>Date d'ajout</th>
+                    <th>Archivage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of listeA">
+                    <td>
+                        {{a.id}}
+                    </td>
+                    <td>
+                        {{a.nom}}
+                    </td>
+                    <td>
+                        {{a.prix}}
+                    </td>
+                    <td>
+                        {{a.image}}
+                    </td>
+                    <td>
+                        {{a.description}}
+                    </td>
+                    <td>
+                        {{a.marque}}
+                    </td>
+                    <td>
+                        {{a.resume}}
+                    </td>
+                    <td>
+                        {{a.date_dajout}}
+                    </td>
+                    <td>
+                        {{a.archive}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

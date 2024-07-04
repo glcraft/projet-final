@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { BasketComponent } from './basket/basket.component';
 import { PanierComponent } from './panier/panier.component';
- 
+import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-articles-crud.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'basket', component: BasketComponent },
   { path: 'panier', component: PanierComponent },
+  { path: 'testcrudart', component: TestArticlesCrudComponent },
 ];
 
 @NgModule({

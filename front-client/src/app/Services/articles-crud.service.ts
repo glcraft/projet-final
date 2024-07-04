@@ -12,11 +12,11 @@ export class ArticlesCrudService {
 
   GetAllArticle()
   {
-    return this.http.get<Array<Articles>>(`${env.baseDomainApi}/api/Article`).toPromise().catch();
+    return this.http.get<Array<Articles>>(`${env.baseDomainApi}/api/articles`).toPromise().catch();
   }
 
   GetArticleById(id: number)
   {
-    return this.http.get<Articles>(`${env.baseDomainApi}/api/Article/${id}`).toPromise().catch();
+    return this.http.get<Articles>(`${env.baseDomainApi}/api/articles/${id}`).toPromise().catch();
   }
 }

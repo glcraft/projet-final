@@ -46,3 +46,4 @@ Thumbs.db
 bin/
 obj/
 packages/
+back/Rest/Web.config
