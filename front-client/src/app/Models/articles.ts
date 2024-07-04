@@ -4,11 +4,11 @@ export class Articles {
     id: number;
     nom: string;
     prix: number;
-    img: string;
-    descript: string;
+    image: string;
+    description: string;
     marque: string;
     resume: string;
-    date_ajout: string;
+    date_dajout: string;
     archive: string;
     tags: Array<Tags>;
 
@@ -16,19 +16,19 @@ export class Articles {
         this.id = id;
         this.nom = nom;
         this.prix = prix;
-        this.img = img;
-        this.descript = option.descript || "Aucune description";
-        this.marque = option.marque || "Aucune marque";
-        this.resume = option.resume || "Aucun resume";
-        this.date_ajout = option.date_ajout || "Aucune date";
-        this.archive = option.archive || "Aucunes données";
+        this.image = img;
+        this.description = option.description || "";
+        this.marque = option.marque || "";
+        this.resume = option.resume || "";
+        this.date_dajout = option.date_dajout || "";
+        this.archive = option.archive || "";
     }
 }
 
 class ArticlesOptions {
-    descript?: string;
+    description?: string;
     marque?: string;
     resume?: string;
-    date_ajout?: string;
+    date_dajout?: string;
     archive?: string;
 }
