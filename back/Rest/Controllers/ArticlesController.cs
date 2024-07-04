@@ -1,4 +1,4 @@
-﻿using Rest.DAL;
+using Rest.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +26,13 @@ namespace Rest.Controllers
         //    ctx.Articles.Add(article);
         //    ctx.SaveChanges();
         //}
-        public void Delete(int id)
-        {
-            var ctx = new ProjetFinalEntities();
-            var article = ctx.Articles.Find(id);
-            article.archive = DateTime.Now;
-            ctx.SaveChanges();
-        }
+        //public void Delete(int id)
+        //{
+        //    var ctx = new ProjetFinalEntities();
+        //    var article = ctx.Articles.Find(id);
+        //    article.archive = DateTime.Now;
+        //    ctx.SaveChanges();
+        //}
         //public void Put([FromBody]Articles article)
         //{
         //    var ctx = new ProjetFinalEntities();
