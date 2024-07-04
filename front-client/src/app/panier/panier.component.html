@@ -3,12 +3,42 @@
     <h2>Panier</h2>
     <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
     <div *ngFor="let ligne of panier.lignes" class="ligne-panier">
-        <div>{{ ligne.idArticle }}</div>
-        <div>Quantité: <input type="number" [(ngModel)]="ligne.quantite"
-                (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></div>
-        <div>Sous-total: {{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</div>
-        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+<table>
+    <thead>
+        <tr>
+            <th>id article </th>
+            <th class="detail"> prix unitaire</th>
+            <th class="detail"> qté</th>
+            <th class="noPrint">action</th>
+            <th class="total">prix total</th>
+        </tr>
+
+        <tr>
+            <td>{{ ligne.idArticle }}</td>
+            <td>{{ getPrixArticle(ligne.idArticle) }}</td>
+            <td><input type="number" [(ngModel)]="ligne.quantite"
+                    (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
+            <td>{{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</td>
+            <td><button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button></td>
+        </tr>
+
+    </thead>
+</table>
+
+
+        
     </div>
     <div>Total: {{ totalPanier }}</div>
     <button (click)="validerPanier()">Valider le Panier</button>
 </div>
+
+
+
+<!--
+<div>{{ ligne.idArticle }}</div>
+        <div>Quantité: <input type="number" [(ngModel)]="ligne.quantite"
+                (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></div>
+        <div>Sous-total: {{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</div>
+        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+
+-->

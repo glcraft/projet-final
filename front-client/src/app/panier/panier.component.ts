@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PanierService } from '../Services/panier.service';
 import { Panier } from '../Models/panier';
 import { Panierligne } from '../Models/panierligne';
+import { Articles } from '@app/Models/articles';
 
 @Component({
   selector: 'app-panier',
@@ -11,6 +12,7 @@ import { Panierligne } from '../Models/panierligne';
 export class PanierComponent implements OnInit {
   panier: Panier;
   totalPanier: number = 0;
+  article: Articles;
 
   constructor(private panierService: PanierService) { }
 
@@ -23,9 +25,17 @@ export class PanierComponent implements OnInit {
     this.totalPanier = this.panier.lignes.reduce((total, line) => total + (line.quantite * this.getPrixArticle(line.idArticle)), 0);
   }
 
+  getArticle(idArticle: number): Articles {
+    //  ici get article by id
+    return this.article; 
+  }
+
   getPrixArticle(idArticle: number): number {
-    // Fonction factice pour récupérer le prix de l'article basée sur son ID
-    return 50; // Supposons que tous les articles ont le même prix
+   
+    //this.article = this.getArticle(idArticle);
+    //return this.article.prix;
+
+    return 10;
   }
 
   mettreAJourQuantite(idArticle: number, nouvelleQuantite: number) {
