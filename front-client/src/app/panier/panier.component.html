@@ -4,20 +4,22 @@
     <div class="panierWrapper wrapper">
         <h2>Panier</h2>
         <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
-        <table class="tablo">
+        <table *ngIf="articlesDuPanier.length>0"   class="tablo">
             <thead>
                 <tr>
                     <th>id article </th>
+                    <th>Désignation</th>
                     <th class="detail"> prix unitaire</th>
                     <th class="detail"> qté</th>
                     <th class="noPrint">action</th>
                     <th class="total">prix total</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let ligne of panier.lignes" class="ligne-panier">
+            <tbody *ngFor="let ligne of panier.lignes; let i = index" class="ligne-panier">
                 <tr>
-                    <td>{{ ligne.idArticle }}</td>
-                    <td>{{ getPrixArticle(ligne.idArticle) }}</td>
+                    <td> ligne : {{i}}, id: {{ ligne.idArticle }}</td>
+                    <td> {{articlesDuPanier[i].nom}}</td>
+                    <td>{{articlesDuPanier[i].prix}}</td>
                     <td><input type="number" [(ngModel)]="ligne.quantite"
                             (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
                             
@@ -27,7 +29,7 @@
                         <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">moins</button>
                     
                     </td>
-                    <td>{{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</td>
+                    <td>{{ ligne.quantite * articlesDuPanier[i].prix}} </td>
                 </tr>
             </tbody>
             <tfoot>
