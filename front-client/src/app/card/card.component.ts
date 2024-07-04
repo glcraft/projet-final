@@ -22,7 +22,7 @@ export class CardComponent {
 
       this.cards = dataCards;
       this.cards = this.cards.filter(card => card.title.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        card.text.toLowerCase().includes(this.searchValue.toLowerCase()));
+        card.resume.toLowerCase().includes(this.searchValue.toLowerCase()));
 
 
       // Faites quelque chose avec la valeur de recherche, comme filtrer une liste d'articles
