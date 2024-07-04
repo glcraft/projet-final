@@ -184,7 +184,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\CommandesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PanierLignesController.cs" />
     <Compile Include="Controllers\PaniersController.cs" />
@@ -193,9 +192,6 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Clients.cs">
-      <DependentUpon>Models.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Commandes.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Models.Context.cs">
