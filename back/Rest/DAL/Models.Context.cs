@@ -27,7 +27,6 @@ namespace Rest.DAL
     
         public virtual DbSet<Articles> Articles { get; set; }
         public virtual DbSet<Clients> Clients { get; set; }
-        public virtual DbSet<Commandes> Commandes { get; set; }
         public virtual DbSet<PanierLignes> PanierLignes { get; set; }
         public virtual DbSet<Paniers> Paniers { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }

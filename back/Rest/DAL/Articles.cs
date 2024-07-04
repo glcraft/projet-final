@@ -18,7 +18,7 @@ namespace Rest.DAL
         public Articles()
         {
             this.PanierLignes = new HashSet<PanierLignes>();
-            this.Tags = new HashSet<Tags>();
+            this.TagsPriv = new HashSet<Tags>();
         }
     
         public int id { get; set; }
@@ -34,6 +34,6 @@ namespace Rest.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PanierLignes> PanierLignes { internal get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tags> Tags { get; set; }
+        public virtual ICollection<Tags> TagsPriv { private get; set; }
     }
 }
