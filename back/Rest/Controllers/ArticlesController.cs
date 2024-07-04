@@ -20,23 +20,24 @@ namespace Rest.Controllers
         {
             return new ProjetFinalEntities().Articles.Find(id);
         }
-        public void Post([FromBody]Articles article)
-        {
-            var ctx = new ProjetFinalEntities();
-            ctx.Articles.Add(article);
-            ctx.SaveChanges();
-        }
+        //public void Post([FromBody]Articles article)
+        //{
+        //    var ctx = new ProjetFinalEntities();
+        //    ctx.Articles.Add(article);
+        //    ctx.SaveChanges();
+        //}
         public void Delete(int id)
         {
             var ctx = new ProjetFinalEntities();
-            ctx.Articles.Remove(ctx.Articles.Find(id));
+            var article = ctx.Articles.Find(id);
+            article.archive = DateTime.Now;
             ctx.SaveChanges();
         }
-        public void Put([FromBody]Articles article)
-        {
-            var ctx = new ProjetFinalEntities();
-            ctx.Entry(article).State = System.Data.Entity.EntityState.Modified;
-            ctx.SaveChanges();
-        }
+        //public void Put([FromBody]Articles article)
+        //{
+        //    var ctx = new ProjetFinalEntities();
+        //    ctx.Entry(article).State = System.Data.Entity.EntityState.Modified;
+        //    ctx.SaveChanges();
+        //}
     }
 }
