@@ -15,8 +15,9 @@ namespace Rest.DAL
     public partial class Commandes
     {
         public int id { get; set; }
-        public Nullable<int> id_panier { get; set; }
+        public int id_panier { get; set; }
+        public System.DateTime datetime { get; set; }
     
-        public virtual Paniers Paniers { get; set; }
+        public virtual Paniers Panier { get; set; }
     }
 }

@@ -17,16 +17,16 @@ namespace Rest.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Paniers()
         {
-            this.Commandes = new HashSet<Commandes>();
+            this.Commande = new HashSet<Commandes>();
             this.PanierLignes = new HashSet<PanierLignes>();
         }
     
         public int id { get; set; }
         public Nullable<int> id_client { get; set; }
     
-        public virtual Clients Clients { get; set; }
+        public virtual Clients Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Commandes> Commandes { get; set; }
+        public virtual ICollection<Commandes> Commande { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PanierLignes> PanierLignes { get; set; }
     }

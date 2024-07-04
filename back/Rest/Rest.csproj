@@ -189,7 +189,6 @@
     <Compile Include="Controllers\PanierLignesController.cs" />
     <Compile Include="Controllers\PaniersController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\Articles.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
