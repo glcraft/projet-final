@@ -1,5 +1,3 @@
-import { Tags } from "./tags";
-
 export class Articles {
     id: number;
     nom: string;
@@ -10,7 +8,7 @@ export class Articles {
     resume: string;
     date_dajout: string;
     archive: string;
-    Tags: Array<Tags>;
+    Tags: Array<string>;
 
     constructor(id: number, nom: string, prix: number, img: string, option: ArticlesOptions = {}) {
         this.id = id;
