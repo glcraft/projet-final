@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjetFinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="prix" Type="int" />
+          <Property Name="image" Type="varchar" MaxLength="255" />
+          <Property Name="description" Type="text" />
+          <Property Name="marque" Type="varchar" MaxLength="50" />
+          <Property Name="resume" Type="text" />
+          <Property Name="date_dajout" Type="datetime" />
+          <Property Name="archive" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="passwd" Type="varchar" MaxLength="60" />
+          <Property Name="adr_ligne1" Type="varchar" MaxLength="100" />
+          <Property Name="adr_ligne2" Type="varchar" MaxLength="100" />
+          <Property Name="adr_cp" Type="varchar" MaxLength="5" />
+          <Property Name="adr_ville" Type="varchar" MaxLength="100" />
+          <Property Name="archive" Type="datetime" />
+          <Property Name="statut" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Commandes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_panier" Type="int" />
+        </EntityType>
+        <EntityType Name="PanierLignes">
+          <Key>
+            <PropertyRef Name="id_panier" />
+            <PropertyRef Name="id_article" />
+          </Key>
+          <Property Name="id_panier" Type="int" Nullable="false" />
+          <Property Name="id_article" Type="int" Nullable="false" />
+          <Property Name="quantite" Type="int" />
+        </EntityType>
+        <EntityType Name="Paniers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="TagsArticle">
+          <Key>
+            <PropertyRef Name="id_article" />
+            <PropertyRef Name="id_tag" />
+          </Key>
+          <Property Name="id_article" Type="int" Nullable="false" />
+          <Property Name="id_tag" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Commandes__id_pa__20C1E124">
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paniers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="id_panier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PanierLig__id_ar__1DE57479">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+          <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PanierLignes">
+              <PropertyRef Name="id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PanierLig__id_pa__1CF15040">
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="1" />
+          <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paniers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PanierLignes">
+              <PropertyRef Name="id_panier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paniers__id_clie__1A14E395">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paniers">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TagsArtic__id_ar__145C0A3F">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+          <End Role="TagsArticle" Type="Self.TagsArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TagsArticle">
+              <PropertyRef Name="id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TagsArtic__id_ta__15502E78">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="TagsArticle" Type="Self.TagsArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TagsArticle">
+              <PropertyRef Name="id_tag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjetFinalModelStoreContainer">
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PanierLignes" EntityType="Self.PanierLignes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paniers" EntityType="Self.Paniers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagsArticle" EntityType="Self.TagsArticle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Commandes__id_pa__20C1E124" Association="Self.FK__Commandes__id_pa__20C1E124">
+            <End Role="Paniers" EntitySet="Paniers" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PanierLig__id_ar__1DE57479" Association="Self.FK__PanierLig__id_ar__1DE57479">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="PanierLignes" EntitySet="PanierLignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PanierLig__id_pa__1CF15040" Association="Self.FK__PanierLig__id_pa__1CF15040">
+            <End Role="Paniers" EntitySet="Paniers" />
+            <End Role="PanierLignes" EntitySet="PanierLignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paniers__id_clie__1A14E395" Association="Self.FK__Paniers__id_clie__1A14E395">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Paniers" EntitySet="Paniers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TagsArtic__id_ar__145C0A3F" Association="Self.FK__TagsArtic__id_ar__145C0A3F">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="TagsArticle" EntitySet="TagsArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TagsArtic__id_ta__15502E78" Association="Self.FK__TagsArtic__id_ta__15502E78">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagsArticle" EntitySet="TagsArticle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjetFinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prix" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="resume" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="date_dajout" Type="DateTime" Precision="3" />
+          <Property Name="archive" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PanierLignes" Relationship="Self.FK__PanierLig__id_ar__1DE57479" FromRole="Articles" ToRole="PanierLignes" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Tags" Relationship="Self.TagsArticle" FromRole="Articles" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="passwd" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="adr_ligne1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="adr_ligne2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="adr_cp" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="adr_ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="archive" Type="DateTime" Precision="3" />
+          <Property Name="statut" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Paniers" Relationship="Self.FK__Paniers__id_clie__1A14E395" FromRole="Clients" ToRole="Paniers" />
+        </EntityType>
+        <EntityType Name="Commandes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_panier" Type="Int32" />
+          <NavigationProperty Name="Paniers" Relationship="Self.FK__Commandes__id_pa__20C1E124" FromRole="Commandes" ToRole="Paniers" />
+        </EntityType>
+        <EntityType Name="PanierLignes">
+          <Key>
+            <PropertyRef Name="id_panier" />
+            <PropertyRef Name="id_article" />
+          </Key>
+          <Property Name="id_panier" Type="Int32" Nullable="false" />
+          <Property Name="id_article" Type="Int32" Nullable="false" />
+          <Property Name="quantite" Type="Int32" />
+          <NavigationProperty Name="Articles" Relationship="Self.FK__PanierLig__id_ar__1DE57479" FromRole="PanierLignes" ToRole="Articles" />
+          <NavigationProperty Name="Paniers" Relationship="Self.FK__PanierLig__id_pa__1CF15040" FromRole="PanierLignes" ToRole="Paniers" />
+        </EntityType>
+        <EntityType Name="Paniers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_client" Type="Int32" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Paniers__id_clie__1A14E395" FromRole="Paniers" ToRole="Clients" />
+          <NavigationProperty Name="Commandes" Relationship="Self.FK__Commandes__id_pa__20C1E124" FromRole="Paniers" ToRole="Commandes" />
+          <NavigationProperty Name="PanierLignes" Relationship="Self.FK__PanierLig__id_pa__1CF15040" FromRole="Paniers" ToRole="PanierLignes" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Articles" Relationship="Self.TagsArticle" FromRole="Tags" ToRole="Articles" />
+        </EntityType>
+        <Association Name="FK__PanierLig__id_ar__1DE57479">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+          <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PanierLignes">
+              <PropertyRef Name="id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paniers__id_clie__1A14E395">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paniers">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commandes__id_pa__20C1E124">
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paniers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="id_panier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PanierLig__id_pa__1CF15040">
+          <End Role="Paniers" Type="Self.Paniers" Multiplicity="1" />
+          <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paniers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PanierLignes">
+              <PropertyRef Name="id_panier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TagsArticle">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+          <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProjetFinalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articles" EntityType="Self.Articles" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Commandes" EntityType="Self.Commandes" />
+          <EntitySet Name="PanierLignes" EntityType="Self.PanierLignes" />
+          <EntitySet Name="Paniers" EntityType="Self.Paniers" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" />
+          <AssociationSet Name="FK__PanierLig__id_ar__1DE57479" Association="Self.FK__PanierLig__id_ar__1DE57479">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="PanierLignes" EntitySet="PanierLignes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paniers__id_clie__1A14E395" Association="Self.FK__Paniers__id_clie__1A14E395">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Paniers" EntitySet="Paniers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commandes__id_pa__20C1E124" Association="Self.FK__Commandes__id_pa__20C1E124">
+            <End Role="Paniers" EntitySet="Paniers" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PanierLig__id_pa__1CF15040" Association="Self.FK__PanierLig__id_pa__1CF15040">
+            <End Role="Paniers" EntitySet="Paniers" />
+            <End Role="PanierLignes" EntitySet="PanierLignes" />
+          </AssociationSet>
+          <AssociationSet Name="TagsArticle" Association="Self.TagsArticle">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjetFinalModelStoreContainer" CdmEntityContainer="ProjetFinalEntities">
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="ProjetFinalModel.Articles">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="marque" ColumnName="marque" />
+                <ScalarProperty Name="resume" ColumnName="resume" />
+                <ScalarProperty Name="date_dajout" ColumnName="date_dajout" />
+                <ScalarProperty Name="archive" ColumnName="archive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="ProjetFinalModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
+                <ScalarProperty Name="adr_ligne1" ColumnName="adr_ligne1" />
+                <ScalarProperty Name="adr_ligne2" ColumnName="adr_ligne2" />
+                <ScalarProperty Name="adr_cp" ColumnName="adr_cp" />
+                <ScalarProperty Name="adr_ville" ColumnName="adr_ville" />
+                <ScalarProperty Name="archive" ColumnName="archive" />
+                <ScalarProperty Name="statut" ColumnName="statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commandes">
+            <EntityTypeMapping TypeName="ProjetFinalModel.Commandes">
+              <MappingFragment StoreEntitySet="Commandes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_panier" ColumnName="id_panier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PanierLignes">
+            <EntityTypeMapping TypeName="ProjetFinalModel.PanierLignes">
+              <MappingFragment StoreEntitySet="PanierLignes">
+                <ScalarProperty Name="id_panier" ColumnName="id_panier" />
+                <ScalarProperty Name="id_article" ColumnName="id_article" />
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paniers">
+            <EntityTypeMapping TypeName="ProjetFinalModel.Paniers">
+              <MappingFragment StoreEntitySet="Paniers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="ProjetFinalModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TagsArticle" TypeName="ProjetFinalModel.TagsArticle" StoreEntitySet="TagsArticle">
+            <EndProperty Name="Articles">
+              <ScalarProperty Name="id" ColumnName="id_article" />
+            </EndProperty>
+            <EndProperty Name="Tags">
+              <ScalarProperty Name="id" ColumnName="id_tag" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
