@@ -91,7 +91,7 @@
 
 ```sql
 CREATE TABLE Articles (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     nom VARCHAR(50),
     prix INT,
     image VARCHAR(255),
@@ -103,7 +103,7 @@ CREATE TABLE Articles (
 );
 
 CREATE TABLE Tags (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     nom VARCHAR(50),
     description VARCHAR(200)
 );
@@ -117,7 +117,7 @@ CREATE TABLE TagsArticle (
 );
 
 CREATE TABLE Clients (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     nom VARCHAR(50),
     email VARCHAR(255),
     passwd VARCHAR(60),
@@ -130,7 +130,7 @@ CREATE TABLE Clients (
 );
 
 CREATE TABLE Paniers (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     id_client INT,
     FOREIGN KEY (id_client) REFERENCES Clients(id)
 );
@@ -140,12 +140,20 @@ CREATE TABLE PanierLignes (
     id_article INT,
     quantite INT,
     PRIMARY KEY (id_panier, id_article),
-    FOREIGN KEY (id_panier) REFERENCES Panier(id),
+    FOREIGN KEY (id_panier) REFERENCES Paniers(id),
     FOREIGN KEY (id_article) REFERENCES Articles(id)
 );
 
 CREATE TABLE Commandes (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     id_panier INT,
-    FOREIGN KEY (id_panier) REFERENCES Panier(id)
+    FOREIGN KEY (id_panier) REFERENCES Paniers(id)
 );
+-- Drop all tables
+DROP TABLE  Articles;
+DROP TABLE  Tags;
+DROP TABLE  TagsArticle;
+DROP TABLE  Clients;
+DROP TABLE  Paniers;
+DROP TABLE  PanierLignes;
+DROP TABLE  Commandes;
