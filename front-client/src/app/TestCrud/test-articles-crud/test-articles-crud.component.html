@@ -16,6 +16,7 @@
                     <th>Resume</th>
                     <th>Date d'ajout</th>
                     <th>Archivage</th>
+                    <th>Tags</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,9 @@
                     </td>
                     <td>
                         {{a.archive}}
+                    </td>
+                    <td *ngFor="let t of a.Tags">
+                        {{t.nom}}
                     </td>
                 </tr>
             </tbody>

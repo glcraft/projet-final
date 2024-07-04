@@ -28,9 +28,14 @@ export class PanierligneCrudService {
         });
   }
 
-  GetPanierligneByID(id: number)
+  GetPanierLigneById(id: number)
   {
     return this.http.get<Panierligne>(`${env.baseDomainApi}/api/panierligne/${id}`).toPromise().catch();
+  }
+
+  GetAllPanierLignesByPanierId(id_panier: number)
+  {
+    return this.http.get<Array<Panierligne>>(`${env.baseDomainApi}/api/panierligne?id_panier=${id_panier}`).toPromise().catch();
   }
 
 }

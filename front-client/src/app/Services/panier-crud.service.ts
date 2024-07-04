@@ -33,8 +33,13 @@ export class PanierCrudService {
     });
   }
 
-  GetPanierByID(id: number)
+  GetPanierById(id: number)
   {
     return this.http.get<Panier>(`${env.baseDomainApi}/api/panier/${id}`).toPromise().catch();
+  }
+
+  GetAllPaniersByIdClient(idClient: number)
+  {
+    return this.http.get<Array<Panier>>(`${env.baseDomainApi}/api/panier?id_client${idClient}`).toPromise().catch();
   }
 }

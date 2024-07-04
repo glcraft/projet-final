@@ -19,4 +19,9 @@ export class ArticlesCrudService {
   {
     return this.http.get<Articles>(`${env.baseDomainApi}/api/articles/${id}`).toPromise().catch();
   }
+
+  GetArticleByNom(nom: string)
+  {
+    return this.http.get<Articles>(`${env.baseDomainApi}/api/articles?nom=${nom}`).toPromise().catch();
+  }
 }
