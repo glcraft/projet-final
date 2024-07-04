@@ -14,6 +14,7 @@ import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { BasketComponent } from './basket/basket.component';
+import { PanierComponent } from './panier/panier.component';
  
 
 @NgModule({
@@ -27,6 +28,7 @@ import { BasketComponent } from './basket/basket.component';
     HomeComponent,
     ProductComponent,
     BasketComponent,
+    PanierComponent,
  
   ],
   imports: [
