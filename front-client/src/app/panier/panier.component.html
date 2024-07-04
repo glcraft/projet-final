@@ -1,0 +1,55 @@
+<div class="bg-body">
+
+
+    <div class="panierWrapper wrapper">
+        <h2>Panier</h2>
+        <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
+        <table class="tablo">
+            <thead>
+                <tr>
+                    <th>id article </th>
+                    <th class="detail"> prix unitaire</th>
+                    <th class="detail"> qté</th>
+                    <th class="noPrint">action</th>
+                    <th class="total">prix total</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let ligne of panier.lignes" class="ligne-panier">
+                <tr>
+                    <td>{{ ligne.idArticle }}</td>
+                    <td>{{ getPrixArticle(ligne.idArticle) }}</td>
+                    <td><input type="number" [(ngModel)]="ligne.quantite"
+                            (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
+                            
+                    <td>
+                        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite + 1)">plus</button>
+                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">moins</button>
+                    
+                    </td>
+                    <td>{{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td>{{ totalPanier }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <button class="btn btn-primary "(click)="validerPanier()">Valider le Panier</button>
+
+        <button class="btn btn-danger "(click)="viderPanier()">Vider le panier</button>
+    </div>
+</div>
+
+
+
+<!--
+<div>{{ ligne.idArticle }}</div>
+        <div>Quantité: <input type="number" [(ngModel)]="ligne.quantite"
+                (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></div>
+        <div>Sous-total: {{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</div>
+        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+
+-->

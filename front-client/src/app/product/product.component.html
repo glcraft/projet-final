@@ -1,13 +1,13 @@
 
 <div class="container mt-4">
-    <div class="card">
-        <img [src]="product.src" class="card-img-top" alt="...">
+    <div class="card flex-lg-row ">
+        <img [src]="product.image" class="card-img-top w-50" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ product.title }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
-            <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <h5 class="card-title">{{ product.nom }}</h5>
+            <p class="card-text">{{ product.resume }}</p>
+            <p class="card-text"><strong>Price:</strong> {{ product.prix }}</p>
+            <button class="btn btn-primary" (click)="ajouterAuPanier()">Ajouter au Panier</button>
         </div>
+        
     </div>
 </div>

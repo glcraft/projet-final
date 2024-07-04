@@ -8,6 +8,8 @@ import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { BasketComponent } from './basket/basket.component';
+import { PanierComponent } from './panier/panier.component';
+ 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,8 +20,7 @@ const routes: Routes = [
  // { path: 'card', component: CardComponent },
   { path: 'product/:id', component: ProductComponent },
   { path: 'basket', component: BasketComponent },
-  
-
+  { path: 'panier', component: PanierComponent },
 ];
 
 @NgModule({
