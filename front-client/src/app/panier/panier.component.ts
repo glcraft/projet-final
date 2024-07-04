@@ -39,8 +39,14 @@ export class PanierComponent implements OnInit {
   }
 
   mettreAJourQuantite(idArticle: number, nouvelleQuantite: number) {
-    this.panierService.mettreAJourQuantite(idArticle, nouvelleQuantite);
+
+    if(nouvelleQuantite < 1) {
+      this.supprimerLigne(idArticle)
+    }else{
+          this.panierService.mettreAJourQuantite(idArticle, nouvelleQuantite);
     this.calculerTotalPanier();
+    }
+
   }
 
   supprimerLigne(idArticle: number) {
@@ -51,6 +57,12 @@ export class PanierComponent implements OnInit {
   validerPanier() {
     this.panierService.validerPanier();
     this.panier = this.panierService.getPanier(); // Rafraîchir le panier après validation
+    this.calculerTotalPanier();
+  }
+
+  viderPanier() {
+    this.panierService.viderPanier();
+    this.panier = this.panierService.getPanier(); // Rafraîchir le panier après vidage
     this.calculerTotalPanier();
   }
 }

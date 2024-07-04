@@ -1,9 +1,10 @@
 <div class="bg-body">
-    <h2>Panier</h2>
-    <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
 
-    <div class="panierWrapper">
-        <table>
+
+    <div class="panierWrapper wrapper">
+        <h2>Panier</h2>
+        <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
+        <table class="tablo">
             <thead>
                 <tr>
                     <th>id article </th>
@@ -14,22 +15,20 @@
                 </tr>
             </thead>
             <tbody *ngFor="let ligne of panier.lignes" class="ligne-panier">
-
-                
-                    <tr>
-                        <td>{{ ligne.idArticle }}</td>
-                        <td>{{ getPrixArticle(ligne.idArticle) }}</td>
-                        <td><input type="number" [(ngModel)]="ligne.quantite"
-                                (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
-                       
-                        <td><button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button></td>
-                        <td>{{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</td>
-                    </tr>
-                 
-                
-
-
-             
+                <tr>
+                    <td>{{ ligne.idArticle }}</td>
+                    <td>{{ getPrixArticle(ligne.idArticle) }}</td>
+                    <td><input type="number" [(ngModel)]="ligne.quantite"
+                            (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
+                            
+                    <td>
+                        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite + 1)">plus</button>
+                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">moins</button>
+                    
+                    </td>
+                    <td>{{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</td>
+                </tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -38,18 +37,11 @@
                 </tr>
             </tfoot>
         </table>
+        <button class="btn btn-primary "(click)="validerPanier()">Valider le Panier</button>
 
-
-
+        <button class="btn btn-danger "(click)="viderPanier()">Vider le panier</button>
     </div>
-   
 </div>
-
-
-
-
-<button (click)="validerPanier()">Valider le Panier</button>
- 
 
 
 
