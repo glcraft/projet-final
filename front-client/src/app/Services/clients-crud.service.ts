@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Clients } from '@app/Models/clients';
+import { environment as env } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ClientsCrudService {
   {
     const body = JSON.stringify(c);
 
-    this.http.post("http://localhost:64886/api/Client", body, {
+    this.http.post(`${env.baseDomainApi}/api/Client`, body, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -31,7 +32,7 @@ export class ClientsCrudService {
   {
     const body = JSON.stringify(c);
 
-    this.http.put("http://localhost:64886/api/Client", body, {
+    this.http.put(`${env.baseDomainApi}/api/Client`, body, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -47,6 +48,6 @@ export class ClientsCrudService {
 
   LoginClient(email: string, pwd: string)
   {
-    return this.http.get<Clients>("http://localhost:64886/api/Article/?email=" + email + "&password=" +pwd).toPromise().catch();
+    return this.http.get<Clients>(`${env.baseDomainApi}/api/Article/?email=" + email + "&password=` +pwd).toPromise().catch();
   }
 }

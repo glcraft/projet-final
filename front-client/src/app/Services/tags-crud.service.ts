@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Tags } from '@app/Models/tags';
+import { environment as env } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class TagsCrudService {
 
   GetAllTags()
   {
-    return this.http.get<Array<Tags>>("http://localhost:64886/api/Tag").toPromise().catch();
+    return this.http.get<Array<Tags>>(`${env.baseDomainApi}/api/Tag`).toPromise().catch();
   }
 
   GetTagsById(id: number)
   {
-    return this.http.get<Tags>("http://localhost:64886/api/Tag" + id).toPromise().catch();
+    return this.http.get<Tags>(`${env.baseDomainApi}/api/Tag` + id).toPromise().catch();
   }
 }
