@@ -1,4 +1,4 @@
-using Rest.DAL;
+﻿using Rest.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Routing;
+using System.Security.Principal;
 
 namespace Rest.Controllers
 {
@@ -14,11 +16,11 @@ namespace Rest.Controllers
     {
         public IEnumerable<Articles> Get()
         {
-            return new ProjetFinalEntities().Articles.AsEnumerable();
+            return new ProjetFinalEntities().Articles.Include("TagsPriv").AsEnumerable();
         }
         public Articles Get(int id)
         {
-            return new ProjetFinalEntities().Articles.Find(id);
+            return new ProjetFinalEntities().Articles.Include("TagsPriv").Where(article => article.id == id).First();
         }
         //public void Post([FromBody]Articles article)
         //{
