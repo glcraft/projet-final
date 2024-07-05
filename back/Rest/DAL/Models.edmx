@@ -187,9 +187,8 @@
           <Property Name="adr_ligne2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="adr_cp" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="adr_ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="archive" Type="DateTime" Precision="3" />
+          <Property Name="archive" Type="DateTime" Precision="3" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <Property Name="statut" Type="String" MaxLength="20" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <NavigationProperty Name="Paniers" Relationship="Self.FK__Paniers__id_clie__1A14E395" FromRole="Clients" ToRole="Paniers" />
         </EntityType>
         <EntityType Name="PanierLignes">
           <Key>

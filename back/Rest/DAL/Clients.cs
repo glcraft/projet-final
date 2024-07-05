@@ -14,12 +14,6 @@ namespace Rest.DAL
     
     public partial class Clients
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clients()
-        {
-            this.Paniers = new HashSet<Paniers>();
-        }
-    
         public int id { get; set; }
         public string nom { get; set; }
         public string email { get; set; }
@@ -28,10 +22,7 @@ namespace Rest.DAL
         public string adr_ligne2 { get; set; }
         public string adr_cp { get; set; }
         public string adr_ville { get; set; }
-        public Nullable<System.DateTime> archive { get; set; }
+        public Nullable<System.DateTime> archive { private get; set; }
         public string statut { private get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Paniers> Paniers { get; set; }
     }
 }
