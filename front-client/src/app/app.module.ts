@@ -19,6 +19,7 @@ import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-ar
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { FilterComponent } from './filter/filter.component';
+import { ModifyComponent } from './auth/modify/modify.component';
  
 
 @NgModule({
@@ -37,6 +38,7 @@ import { FilterComponent } from './filter/filter.component';
     LoginComponent,
     RegisterComponent,
     FilterComponent,
+    ModifyComponent,
  
   ],
   imports: [

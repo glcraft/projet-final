@@ -13,6 +13,7 @@ import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-ar
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { FilterComponent } from './filter/filter.component';
+import { ModifyComponent } from './auth/modify/modify.component';
  
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'filter', component: FilterComponent },
+  { path: 'modify', component: ModifyComponent },
 
 
 ];

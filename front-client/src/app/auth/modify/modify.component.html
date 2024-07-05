@@ -1,0 +1,39 @@
+<div class="modifyWrapper">
+    <div class="bg-body-secondary">
+        <div class="container">
+            <h2>Modifier votre profil</h2>
+            <form (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail (non modifiable)</label>
+                    <input type="text" class="form-control" id="email" [(ngModel)]="email" name="email" disabled="disabled">
+                </div>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" [(ngModel)]="nom" name="nom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="adr_ligne1" class="form-label">Adresse Ligne 1</label>
+                    <input type="text" class="form-control" id="adr_ligne1" [(ngModel)]="adr_ligne1" name="adr_ligne1"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="adr_ligne2" class="form-label">Adresse Ligne 2</label>
+                    <input type="text" class="form-control" id="adr_ligne2" [(ngModel)]="adr_ligne2" name="adr_ligne2">
+                </div>
+                <div class="mb-3">
+                    <label for="adr_cp" class="form-label">Code Postal</label>
+                    <input type="text" class="form-control" id="adr_cp" [(ngModel)]="adr_cp" name="adr_cp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="adr_ville" class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="adr_ville" [(ngModel)]="adr_ville" name="adr_ville"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+        </div>
+
+
+    </div>
+
+</div>
