@@ -55,22 +55,11 @@ namespace Rest.Controllers
                 ctx = ctx.Where(a => a.nom.Contains(filter.Nom));
             }
 
-            if (filter.PrixMin >= 0 && filter.PrixMax >= 0 && filter.PrixMin <= filter.PrixMax)
+            if (filter.Prix != null && filter.Prix.Length == 2 && filter.Prix[0] >= 0 && filter.Prix[1] >= 0 && filter.Prix[0] <= filter.Prix[1])
             {
-                ctx = ctx.Where(a => a.prix >= filter.PrixMin && a.prix <= filter.PrixMax);
-            }
-            else if (filter.PrixMin >= 0)
-            {
-                ctx = ctx.Where(a => a.prix >= filter.PrixMin);
-            }
-            else if (filter.PrixMax >= 0)
-            {
-                ctx = ctx.Where(a => a.prix <= filter.PrixMax);
-            }
-
-            if (filter.Tags != null && filter.Tags.Any())
-            {
-                ctx = ctx.Where(a => filter.Tags.Any(tag => a.Tags.Any(t => t == tag)));
+                int prixMin = filter.Prix[0];
+                int prixMax = filter.Prix[1];
+                ctx = ctx.Where(a => a.prix >= prixMin && a.prix <= prixMax);
             }
 
             if (!string.IsNullOrEmpty(filter.Marque))
@@ -78,7 +67,14 @@ namespace Rest.Controllers
                 ctx = ctx.Where(a => a.marque.Contains(filter.Marque));
             }
 
-            return ctx.AsEnumerable();
+            var result = ctx.AsEnumerable();
+
+            if (filter.Tags != null && filter.Tags.Any())
+            {
+                result = result.Where(a => a.Tags.Any(t => filter.Tags.Contains(t)));
+            }
+
+            return result.OrderBy(a => a.nom);
         }
 
         [HttpGet]
@@ -88,7 +84,9 @@ namespace Rest.Controllers
             var PrixMin = new ProjetFinalEntities().Articles.Where(a => a.archive == null).Min(a => a.prix);
             var PrixMax = new ProjetFinalEntities().Articles.Where(a => a.archive == null).Max(a => a.prix);
 
-            return Ok(new { PrixMin = PrixMin, PrixMax = PrixMax });
+            int?[] result = { PrixMin, PrixMax };
+
+            return Ok(result);
         }
     }
 }
