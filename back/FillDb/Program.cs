@@ -29,7 +29,7 @@ namespace FillDb
             SteamSpyClient sspy = new SteamSpyClient(client);
 
             StoreService store = new StoreService(steam);
-            var listApps = await store.GetListApps(new GetListAppsOptions { max_results = 10 });
+            var listApps = await store.GetListApps(new GetListAppsOptions { max_results = 200 });
             var tasks = new List<Task>();
             Mutex mutex = new Mutex();
             foreach (var app in listApps.apps)
