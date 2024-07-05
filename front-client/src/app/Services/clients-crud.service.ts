@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Clientregister } from '@app/Models/clientregister';
 import { Clients } from '@app/Models/clients';
 import { environment as env } from 'src/environment/environment';
 
@@ -10,11 +11,11 @@ export class ClientsCrudService {
 
   constructor(private http: HttpClient) { }
 
-  CreateClient(c: Clients)
+  CreateClient(c: Clientregister)
   {
     const body = JSON.stringify(c);
 
-    this.http.post(`${env.baseDomainApi}/api/Client`, body, {
+    this.http.post(`${env.baseDomainApi}/api/Clients`, body, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
