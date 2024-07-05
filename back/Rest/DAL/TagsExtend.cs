@@ -11,8 +11,6 @@ namespace Rest.DAL
         {
             get
             {
-                var ctx = new ProjetFinalEntities();
-
                 var test = from tags in TagsPriv
                            select tags.nom;
                 var testlist = test.ToList();
