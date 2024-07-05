@@ -28,9 +28,9 @@ export class PanierCrudService {
           console.log("panier post article KO")
         });
 
-    p.lignes.forEach(ligne => {
-      this.srv.CreatePanierLigne(ligne);
-    });
+    // p.lignes.forEach(ligne => {
+    //   this.srv.CreatePanierLigne(ligne);
+    // });
   }
 
   GetPanierById(id: number)
