@@ -18,6 +18,7 @@ import { PanierComponent } from './panier/panier.component';
 import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-articles-crud.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { FilterComponent } from './filter/filter.component';
  
 
 @NgModule({
@@ -35,6 +36,7 @@ import { RegisterComponent } from './auth/register/register.component';
     TestArticlesCrudComponent,
     LoginComponent,
     RegisterComponent,
+    FilterComponent,
  
   ],
   imports: [

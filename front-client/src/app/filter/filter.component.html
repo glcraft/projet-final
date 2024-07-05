@@ -1,0 +1,60 @@
+<div class="filterWrapper">
+<div class="container bg-body-secondary">
+    <form (ngSubmit)="onSearch()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="priceMin">Prix Min:</label>
+                <input type="number" id="priceMin" class="form-control" [(ngModel)]="searchCriteria.priceMin"
+                    name="priceMin" required>
+            </div>
+            <div class="col-md-6">
+                <label for="priceMax">Prix Max:</label>
+                <input type="number" id="priceMax" class="form-control" [(ngModel)]="searchCriteria.priceMax"
+                    name="priceMax" required>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="name">Nom:</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="searchCriteria.nom" name="nom">
+            </div>
+            <div class="col-md-6">
+                <label for="brand">Marque:</label>
+                <input type="text" id="brand" class="form-control" [(ngModel)]="searchCriteria.marque" name="marque">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <label for="tags">Tags (séparés par des virgules):</label>
+                <input type="text" id="tags" class="form-control" [(ngModel)]="searchCriteria.tags" name="tags">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row mt-5" *ngIf="filteredArticles.length">
+        <div class="col-md-4" *ngFor="let article of filteredArticles">
+            <div class="card mb-4">
+                <img [src]="article.image" class="card-img-top" alt="Image de l'article">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.nom }}</h5>
+                    <p class="card-text">{{ article.description }}</p>
+                    <p class="card-text">Prix: {{ article.prix }}€</p>
+                    <p class="card-text">Marque: {{ article.marque }}</p>
+                    <a href="#" class="btn btn-primary">Voir l'article</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+</div>
+
+
+
