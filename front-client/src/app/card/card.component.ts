@@ -3,6 +3,7 @@ import { SearchService } from '@app/Services/search.service';
 //import { dataCards } from '../data/data.js';
 import { Articles } from '@app/Models/articles';
 import { ArticlesCrudService } from '@app/Services/articles-crud.service';
+import { PanierService } from '@app/Services/panier.service';
 
 @Component({
   selector: 'app-card',
@@ -14,7 +15,7 @@ export class CardComponent {
   cards: any;
   searchValue: string = '';
   dataCards: Array<Articles> = new Array<Articles>();
-  constructor(private searchService: SearchService, private srv: ArticlesCrudService ) { }
+  constructor(private searchService: SearchService, private srv: ArticlesCrudService, private panierService: PanierService ) { }
 
   ngOnInit() {
     this.srv.GetAllArticle()
@@ -32,7 +33,9 @@ export class CardComponent {
     });
   }
 
-
+  ajouterAuPanier(id: number) {
+    this.panierService.ajouterAuPanier(id, 1); // Ajoute 1 unité de l'article au panier
+  }
 
 
 
