@@ -1,7 +1,7 @@
-import { dataCards } from '../data/data.js';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Articles } from '@app/Models/articles';
+import { ArticlesCrudService } from '@app/Services/articles-crud.service';
 import { PanierService } from '@app/Services/panier.service';
 
 @Component({
@@ -12,16 +12,26 @@ import { PanierService } from '@app/Services/panier.service';
 export class ProductComponent {
   id: number;
 
-  product:Articles ;
-  
-  constructor(private route: ActivatedRoute, private panierService: PanierService) { }
+  product: Articles;
+
+  constructor(private route: ActivatedRoute, private panierService: PanierService, private srv: ArticlesCrudService) { }
   ngOnInit(): void {
-    //partie 1y
+    //partie 1
     this.route.params.subscribe(params => {
       this.id = params['id'];
       console.log(this.id);
-    }); 
-    this.product = dataCards.find(item => item.id == this.id);
+    });
+    //this.product = dataCards.find(item => item.id == this.id);
+    this.loadArticleById(this.id);
+
+  }
+  async loadArticleById(id: number) {
+    try {
+      this.product = await this.srv.GetArticleById(id);
+      console.log(this.product);
+    } catch (error) {
+      console.error("Error loading article by ID:", error);
+    }
   }
 
   ajouterAuPanier() {

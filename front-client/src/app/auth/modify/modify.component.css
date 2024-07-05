@@ -1,9 +1,11 @@
-.productWrapper{
- max-width: 700px;
+/* Table container */
+.modifyWrapper {
+    width: 1000px;
     margin: auto;
     height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
+
 
 }

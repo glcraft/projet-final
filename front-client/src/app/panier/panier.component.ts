@@ -3,66 +3,69 @@ import { PanierService } from '../Services/panier.service';
 import { Panier } from '../Models/panier';
 import { Panierligne } from '../Models/panierligne';
 import { Articles } from '@app/Models/articles';
+import { ArticlesCrudService } from '@app/Services/articles-crud.service';
 
 @Component({
   selector: 'app-panier',
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.css']
 })
+
 export class PanierComponent implements OnInit {
   panier: Panier;
   totalPanier: number = 0;
   article: Articles;
+  articlesDuPanier: Articles[] = [] ;
 
-  constructor(private panierService: PanierService) { }
+  constructor(private panierService: PanierService, private srv: ArticlesCrudService) { }
 
   ngOnInit(): void {
     this.panier = this.panierService.getPanier();
-    this.calculerTotalPanier();
+    this.setArticlesDuPanier();
+  }
+ // tableau d'articles du panier er calcul du total du panier
+  setArticlesDuPanier() {
+    this.totalPanier = 0;
+    this.panier.lignes.forEach(async (ligne) => {
+      let article = await this.srv.GetArticleById(ligne.idArticle);
+      this.articlesDuPanier.push(article);
+      this.totalPanier += ligne.quantite*article.prix;
+    });
   }
 
-  calculerTotalPanier() {
-    this.totalPanier = this.panier.lignes.reduce((total, line) => total + (line.quantite * this.getPrixArticle(line.idArticle)), 0);
+  async getArticle(id: number) {
+    try {
+      this.article = await this.srv.GetArticleById(id);
+ 
+    } catch (error) {
+      console.error("Error loading article by ID:", error);
+    }
   }
 
-  getArticle(idArticle: number): Articles {
-    //  ici get article by id
-    return this.article; 
-  }
-
-  getPrixArticle(idArticle: number): number {
-   
-    //this.article = this.getArticle(idArticle);
-    //return this.article.prix;
-
-    return 10;
-  }
 
   mettreAJourQuantite(idArticle: number, nouvelleQuantite: number) {
-
     if(nouvelleQuantite < 1) {
       this.supprimerLigne(idArticle)
     }else{
           this.panierService.mettreAJourQuantite(idArticle, nouvelleQuantite);
-    this.calculerTotalPanier();
-    }
-
+    };
+    this.setArticlesDuPanier();
   }
 
   supprimerLigne(idArticle: number) {
     this.panierService.supprimerLigne(idArticle);
-    this.calculerTotalPanier();
+    this.setArticlesDuPanier();
   }
 
   validerPanier() {
     this.panierService.validerPanier();
     this.panier = this.panierService.getPanier(); // Rafraîchir le panier après validation
-    this.calculerTotalPanier();
+    this.setArticlesDuPanier();
   }
 
   viderPanier() {
     this.panierService.viderPanier();
     this.panier = this.panierService.getPanier(); // Rafraîchir le panier après vidage
-    this.calculerTotalPanier();
+    this.setArticlesDuPanier();
   }
 }

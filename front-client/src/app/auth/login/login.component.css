@@ -1,0 +1,5 @@
+.loginWrapper {
+    width: 700px;
+    margin: auto;
+    height: calc(100vh - 120px);
+}
