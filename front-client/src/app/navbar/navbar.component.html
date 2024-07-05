@@ -1,4 +1,4 @@
-<nav class="navBarWrapper navbar navbar-expand-md bg-body-tertiary " >
+<nav class="navBarWrapper navbar navbar-expand-md bg-body-tertiary ">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -11,7 +11,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="panier">Panier</a>
+                    <a class="nav-link" aria-current="page" href="panier">Panier</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -34,11 +34,25 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-        <!-- navbar.component.html -->
-        <form class="d-flex" role="search" (submit)="onSearch($event)">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" (input)="onSearch($event)">
-            <!--<button class="btn btn-outline-success" type="submit">Search</button>-->
-        </form>
+            <!-- navbar.component.html -->
+            <form class="d-flex" role="search" (submit)="onSearch($event)">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                    (input)="onSearch($event)">
+                <!--<button class="btn btn-outline-success" type="submit">Search</button>-->
+            </form>
+
+            <ul class="navbar-nav  ">
+                <li  *ngIf="!isLogged" class="nav-item">
+                    <a class="nav-link" aria-current="page" href="login">Login</a>
+                </li>
+                <li  *ngIf="isLogged"  class="nav-item">
+                    <a class="nav-link" aria-current="page" href="logout">Logout</a>
+                </li>
+                <li *ngIf="!isLogged" class="nav-item">
+                    <a class="nav-link" aria-current="page" href="register">Register</a>
+                </li>
+            </ul>
+
 
         </div>
     </div>

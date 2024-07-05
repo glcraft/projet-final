@@ -1,0 +1,15 @@
+.homeWrapper {
+
+    width: 1000px;
+    margin: auto;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+   
+}
+
+.cards{
+    width: 100%;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+}

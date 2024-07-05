@@ -1,0 +1,47 @@
+<div class="registerWrapper">
+
+    <div class="container">
+        <div class="row justify-content-center bg-body-secondary mb-2 p-4">
+            <div class="col-md-6">
+                <h2>Register</h2>
+                <form (submit)="onRegister()">
+                    <div class="mb-2">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" [(ngModel)]="nom" name="nom" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="passwd" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwd" [(ngModel)]="passwd" name="passwd"
+                            required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="adr_ligne1" class="form-label">Adresse Ligne 1</label>
+                        <input type="text" class="form-control" id="adr_ligne1" [(ngModel)]="adr_ligne1"
+                            name="adr_ligne1" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="adr_ligne2" class="form-label">Adresse Ligne 2</label>
+                        <input type="text" class="form-control" id="adr_ligne2" [(ngModel)]="adr_ligne2"
+                            name="adr_ligne2">
+                    </div>
+                    <div class="mb-2">
+                        <label for="adr_cp" class="form-label">Code Postal</label>
+                        <input type="text" class="form-control" id="adr_cp" [(ngModel)]="adr_cp" name="adr_cp" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="adr_ville" class="form-label">Ville</label>
+                        <input type="text" class="form-control" id="adr_ville" [(ngModel)]="adr_ville" name="adr_ville"
+                            required>
+                    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+                    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

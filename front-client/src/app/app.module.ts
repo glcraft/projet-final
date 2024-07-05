@@ -16,6 +16,8 @@ import { ProductComponent } from './product/product.component';
 import { BasketComponent } from './basket/basket.component';
 import { PanierComponent } from './panier/panier.component';
 import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-articles-crud.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
  
 
 @NgModule({
@@ -31,6 +33,8 @@ import { TestArticlesCrudComponent } from './TestCrud/test-articles-crud/test-ar
     BasketComponent,
     PanierComponent,
     TestArticlesCrudComponent,
+    LoginComponent,
+    RegisterComponent,
  
   ],
   imports: [

@@ -1,10 +1,9 @@
-<div class="bg-body">
+<div class="panierWrapper ">
 
-
-    <div class="panierWrapper wrapper">
+    <div class="bg-body-secondary p-3">
         <h2>Panier</h2>
         <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
-        <table *ngIf="articlesDuPanier.length>0"   class="tablo">
+        <table *ngIf="articlesDuPanier.length>0" class="tablo">
             <thead>
                 <tr>
                     <th>id article </th>
@@ -22,12 +21,12 @@
                     <td>{{articlesDuPanier[i].prix}}</td>
                     <td><input type="number" [(ngModel)]="ligne.quantite"
                             (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
-                            
+
                     <td>
                         <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
                         <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite + 1)">plus</button>
                         <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">moins</button>
-                    
+
                     </td>
                     <td>{{ ligne.quantite * articlesDuPanier[i].prix}} </td>
                 </tr>
@@ -39,10 +38,18 @@
                 </tr>
             </tfoot>
         </table>
-        <button class="btn btn-primary "(click)="validerPanier()">Valider le Panier</button>
+        <div *ngIf="articlesDuPanier.length>0" class="d-flex justify-content-evenly align-items-center">
+            <button class="btn btn-primary " (click)="validerPanier()">Valider le Panier</button>
 
-        <button class="btn btn-danger "(click)="viderPanier()">Vider le panier</button>
+            <button class="btn btn-danger " (click)="viderPanier()">Vider le panier</button>
+
+        </div>
+
     </div>
+
+
+
+
 </div>
 
 

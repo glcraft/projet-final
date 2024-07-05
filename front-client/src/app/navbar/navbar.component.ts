@@ -7,6 +7,10 @@ import { SearchService } from '@app/Services/search.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  isLogged = false;
+
+
   constructor(private searchService: SearchService) { }
 
   onSearch(event: Event) {
