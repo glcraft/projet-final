@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Clients } from '@app/Models/clients';
+import { ClientsCrudService } from '@app/Services/clients-crud.service';
 
 @Component({
   selector: 'app-login',
@@ -10,22 +12,31 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  listeC: Array<Clients>;
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private srv : ClientsCrudService) { }
 
-  onLogin() {
-   /* this.authService.login(this.username, this.password).subscribe(
-      success => {
-        if (success) {
-          this.router.navigate(['/home']);
-        } else {
-          this.errorMessage = 'Invalid username or password';
-        }
-      },
-      error => {
-        this.errorMessage = 'An error occurred. Please try again later.';
-      }
-    );*/
+  async onLogin() {
+
+    // Recuperation de la liste des utilisateurs
+    await this.srv.GetAllClient()
+    .then(c => this.listeC = c)
+
+    // Verification de l'existence de l'utilisateur
+    if(this.listeC.find(c => c.email == this.username))
+    {
+      // Si l'utilisateur existe, on le redirige vers la page d'accueil
+      this.router.navigate(['/']);
+      // on passe les infos utilisateur en session storage
+      sessionStorage.setItem('userLogged', JSON.stringify(this.listeC.find(c => c.email == this.username)));
+    } else {}
+
+
+
+
+    // Si l'utilisateur existe, on le redirige vers la page d'accueil
+    // Sinon, on affiche un message d'erreur
+   // this.router.navigate(['/']);
 
   }
 }

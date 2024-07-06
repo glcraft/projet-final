@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PanierService } from '../Services/panier.service';
 import { Panier } from '../Models/panier';
-import { Panierligne } from '../Models/panierligne';
 import { Articles } from '@app/Models/articles';
 import { ArticlesCrudService } from '@app/Services/articles-crud.service';
 
@@ -15,7 +14,8 @@ export class PanierComponent implements OnInit {
   panier: Panier;
   totalPanier: number = 0;
   article: Articles;
-  articlesDuPanier: Articles[] = [] ;
+  articlesDuPanier: Articles[] = [];
+ 
 
   constructor(private panierService: PanierService, private srv: ArticlesCrudService) { }
 
@@ -26,7 +26,9 @@ export class PanierComponent implements OnInit {
  // tableau d'articles du panier er calcul du total du panier
   setArticlesDuPanier() {
     this.totalPanier = 0;
+    this.articlesDuPanier = [];
     this.panier.lignes.forEach(async (ligne) => {
+    
       let article = await this.srv.GetArticleById(ligne.idArticle);
       this.articlesDuPanier.push(article);
       this.totalPanier += ligne.quantite*article.prix;
@@ -41,7 +43,6 @@ export class PanierComponent implements OnInit {
       console.error("Error loading article by ID:", error);
     }
   }
-
 
   mettreAJourQuantite(idArticle: number, nouvelleQuantite: number) {
     if(nouvelleQuantite < 1) {

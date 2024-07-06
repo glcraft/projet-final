@@ -33,7 +33,7 @@ export class ClientsCrudService {
   {
     const body = JSON.stringify(c);
 
-    this.http.put(`${env.baseDomainApi}/api/Client`, body, {
+    this.http.put(`${env.baseDomainApi}/api/Clients/`, body, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -49,6 +49,11 @@ export class ClientsCrudService {
 
   LoginClient(email: string, pwd: string)
   {
-    return this.http.get<Clients>(`${env.baseDomainApi}/api/Client/?email=${email}&password=${pwd}`).toPromise().catch();
+    return this.http.get<Clients>(`${env.baseDomainApi}/api/Clients/?email=${email}&password=${pwd}`).toPromise().catch();
   }
+
+  GetAllClient()
+  {
+    return this.http.get<Array<Clients>>(`${env.baseDomainApi}/api/Clients`).toPromise().catch();
+  } 
 }
