@@ -67,7 +67,7 @@ export class PanierService {
       this.panier.lignes.push(nouvelleLigne);
     }
     this.saveAndNotifyPanierChange();
-    this.router.navigate(['/panier']);
+    
   }
 
   //////////////   maj quantité //////////////////////////
@@ -136,11 +136,16 @@ export class PanierService {
         localStorage.removeItem('panier');
   }
 
-
   ////////////  get panier //////////////////////////
   getPanier(): Panier {
     return this.panier;
   }
+
+  /// nombre d'articles dans le panier
+  getNbArticles(): number {
+    return this.panier.lignes.reduce((acc, line) => acc + line.quantite, 0);
+  }
+
 
   ////////////  save to storage and notify panier change ////  
   private saveAndNotifyPanierChange() {

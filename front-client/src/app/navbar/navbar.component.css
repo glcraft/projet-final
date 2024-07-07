@@ -1,4 +1,15 @@
 .navBarWrapper{
     z-index: 1000;
-    height: 60px; position:fixed; top:0; width: 100%;
+    height: 70px; position:fixed; top:0; width: 100%;
+  
+}
+
+.container-fluid{
+    border-top: black solid 2px ;
+    height: 68px;
+    background-color:#EAEDED;
+    border-color: black solid 2px;
+}
+h1 {
+    font-family: 'Press Start 2P', cursive;
 }

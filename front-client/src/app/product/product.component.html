@@ -2,12 +2,23 @@
 
     <div class="container mt-4">
         <div class="card flex-row ">
-            <img [src]="product.image" class="card-img-top w-50" alt="...">
+            <img [src]="formatImg(product.image)" class="card-img-top w-50" alt="...">
             <div class="card-body w-auto">
                 <h5 class="card-title">{{ product.nom }}</h5>
                 <p class="card-text">{{ product.resume }}</p>
-                <p class="card-text"><strong>Price:</strong> {{ product.prix }}</p>
-                <button class="btn btn-primary" (click)="ajouterAuPanier()">Ajouter au Panier</button>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text">{{ formatPrix(product.prix)}}</p>
+                <ul>
+                    <li *ngFor="let tag of product.Tags" class="badge rounded-pill text-bg-info mx-1">
+                        {{tag}}
+                    </li>
+                </ul>
+          
+                <button   class="btn btn-primary btn-sm btnProd" (click)="ajouterAuPanier()">Ajouter au
+                    Panier</button>
+                    <button class="btn btn-primary btn-sm btnProd" routerLink="/">Retour Catalogue</button>
+
+
             </div>
 
         </div>

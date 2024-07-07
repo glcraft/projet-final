@@ -20,6 +20,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { FilterComponent } from './filter/filter.component';
 import { ModifyComponent } from './auth/modify/modify.component';
+import { ModalService } from './Services/modal.service';
  
 
 @NgModule({
@@ -47,7 +48,7 @@ import { ModifyComponent } from './auth/modify/modify.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

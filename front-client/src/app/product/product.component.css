@@ -1,9 +1,28 @@
-.productWrapper{
- max-width: 700px;
+.productWrapper {
+    max-width: 700px;
     margin: auto;
-    height: calc(100vh - 120px);
+    height: calc(100% - 120px);
+    min-height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
 
+}
+
+.btnProd {
+    color: #000;
+    background-color: rgb(247, 202, 0);
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    transition-duration: 0.4s;
+}
+
+.btnProd:hover {
+    background-color: rgb(233, 192, 9);
+    border: black 1px solid;
+    scale: 1.1;
 }
