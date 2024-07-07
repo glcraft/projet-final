@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@app/Services/auth.service';
 import { PanierService } from '@app/Services/panier.service';
 import { SearchService } from '@app/Services/search.service';
 
@@ -12,7 +13,7 @@ export class NavbarComponent {
   isLogged = false;
 
 
-  constructor(private searchService: SearchService, private panierService: PanierService) { }
+  constructor(private searchService: SearchService, private panierService: PanierService, private authService: AuthService) { }
 
   onSearch(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -24,6 +25,16 @@ export class NavbarComponent {
     return this.panierService.getNbArticles();
   }
 
+  ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe(status => 
+    {
+      this.isLogged = status;
+    });
+  }
 
+  onLogout() {
+    this.authService.logout();
+    this.isLogged = false;
+  }
 
 }

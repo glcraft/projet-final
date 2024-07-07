@@ -104,24 +104,59 @@ export class PanierService {
     if (panierData == null) {
      return;
     }
-     let panier = JSON.parse(panierData);
+    let panier = JSON.parse(panierData);
 
     // check si il y a bien un client connecté et que l'id client n'est pas -1 
     const userLogged = sessionStorage.getItem('userLogged');
-    if (userLogged == null) {
+    const token = localStorage.getItem('token');
+    const client = localStorage.getItem('client')
+
+    if (token == null) 
+    {
+      alert('Vous devez être connecté pour valider votre panier.');
       this.router.navigate(['/login']);
-    } else if (userLogged != null && panier.idClient == -1) {  // si client non connecté quand fait son panier - recupère la commande
+    } 
+    else if (token != null && panier.idClient == -1) 
+      {  // si client non connecté quand fait son panier - recupère la commande
+      panier.idClient = JSON.parse(client).id;
+      this.processCommand(panier);
+    } 
+    else 
+    {
+      //check si le panier n'est pas vide et que le client connecté est le même que celui du panier
+      if (this.panier.lignes.length > 0 && panier.idClient == JSON.parse(client).id) {
+        // on enregistre le panier dans la base de données
+        this.processCommand(panier);
+      } 
+      else 
+      {
+        console.log('Panier vide ou client différent');
+      }
+    }
+
+    /*
+    if (userLogged == null) 
+    {
+      alert('Vous devez être connecté pour valider votre panier.');
+      this.router.navigate(['/login']);
+    } 
+    else if (userLogged != null && panier.idClient == -1) 
+      {  // si client non connecté quand fait son panier - recupère la commande
       panier.idClient = JSON.parse(userLogged).id;
       this.processCommand(panier);
-    } else {
+    } 
+    else 
+    {
       //check si le panier n'est pas vide et que le client connecté est le même que celui du panier
       if (this.panier.lignes.length > 0 && panier.idClient == JSON.parse(userLogged).id) {
         // on enregistre le panier dans la base de données
         this.processCommand(panier);
-      } else {
+      } 
+      else 
+      {
         console.log('Panier vide ou client différent');
       }
-    }
+    } */
   }
 
   processCommand(panier){
