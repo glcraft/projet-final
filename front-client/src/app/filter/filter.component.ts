@@ -33,7 +33,7 @@ export class FilterComponent {
         tags: params['tags']
       };
       (!this.prices 
-        ? this.srv.getPrices().then(p => this.prices = p) 
+        ? this.srv.getPrices().then(p => this.prices = [p[0]/100, p[1]/100]) 
         : new Promise<void>((resolve, reject) => resolve())
       ).then(() => {
         if (!this.searchCriteria.priceMin)
@@ -73,7 +73,7 @@ export class FilterComponent {
   transformSearchOptions(){
     return {
       "Nom": this.searchCriteria.nom,
-      "Prix": this.searchCriteria.priceMin && this.searchCriteria.priceMax ? [this.searchCriteria.priceMin, this.searchCriteria.priceMax]: undefined,
+      "Prix": this.searchCriteria.priceMin && this.searchCriteria.priceMax ? [this.searchCriteria.priceMin*100, this.searchCriteria.priceMax*100]: undefined,
       "Tags": this.searchCriteria.tags ? this.searchCriteria.tags.split(',').map(tag => tag.trim()): undefined,
       "Marque": this.searchCriteria.marque,
       Limit: 20
