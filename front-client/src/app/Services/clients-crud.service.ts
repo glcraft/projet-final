@@ -22,10 +22,10 @@ export class ClientsCrudService {
     }).
       subscribe(
         response => {
-        console.log("client post article OK");
+        console.log("client post OK");
       },
         err => {
-          console.log("client post article KO")
+          console.log("client post KO")
         });
   }
 
