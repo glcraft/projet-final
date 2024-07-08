@@ -48,9 +48,4 @@ export class CardComponent {
     return `../../../assets/images/${image}`;
   }
 
-
-
-
-
- 
 }

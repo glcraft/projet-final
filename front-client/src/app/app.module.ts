@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -21,6 +21,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { FilterComponent } from './filter/filter.component';
 import { ModifyComponent } from './auth/modify/modify.component';
 import { ModalService } from './Services/modal.service';
+import { authInterceptor } from './Services/auth.interceptor.service';
  
 
 @NgModule({
@@ -48,7 +49,14 @@ import { ModalService } from './Services/modal.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ModalService],
-  bootstrap: [AppComponent]
+  
+  bootstrap: [AppComponent],
+  providers: [
+    ModalService,
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
+  ]
+  
 })
 export class AppModule { }
