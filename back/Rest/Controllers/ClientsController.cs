@@ -37,8 +37,21 @@ namespace Rest.Controllers
         public void Put([FromBody]Clients client)
         {
             var ctx = new ProjetFinalEntities();
-            ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
-            ctx.SaveChanges();
+            var existingClient = ctx.Clients.Find(client.id);
+
+            if(existingClient != null)
+            {
+                existingClient.nom = client.nom;
+                existingClient.email = client.email;
+                existingClient.adr_ligne1 = client.adr_ligne1;
+                existingClient.adr_ligne2 = client.adr_ligne2;
+                existingClient.adr_cp = client.adr_cp;
+                existingClient.adr_ville = client.adr_ville;
+
+                ctx.SaveChanges();
+            }
+            //ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
+            //ctx.SaveChanges();
         }
     }
 }
