@@ -76,7 +76,22 @@ namespace Rest.Controllers
                 result = result.Where(a => a.Tags.Any(t => filter.Tags.Select(tf => tf.ToLower()).Contains(t.ToLower())));
 
             //trier
-            result = result.OrderBy(a => a.nom);
+            switch (filter.TrierPar)
+            {
+                case "id":
+                    result = result.OrderBy(a => a.id);
+                    break;
+                case "prix":
+                    result = result.OrderBy(a => a.prix);
+                    break;
+                case "date_ajout":
+                    result = result.OrderBy(a => a.date_dajout);
+                    break;
+                case "nom":
+                default:
+                    result = result.OrderBy(a => a.nom);
+                    break;
+            }
 
             //prendre à partir de...
             if (filter.Offset != null)
