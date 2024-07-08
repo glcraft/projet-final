@@ -50,31 +50,38 @@ namespace Rest.Controllers
 
             ctx = ctx.Where(a => a.archive == null);
 
+            //filtrer par nom
             if (!string.IsNullOrEmpty(filter.Nom))
                 ctx = ctx.Where(a => a.nom.Contains(filter.Nom));
 
+            //filtrer par prix
             if (filter.Prix != null && filter.Prix.Length == 2 && filter.Prix[0] >= 0 && filter.Prix[1] >= 0 && filter.Prix[0] <= filter.Prix[1])
             {
                 int prixMin = filter.Prix[0];
                 int prixMax = filter.Prix[1];
                 ctx = ctx.Where(a => a.prix >= prixMin && a.prix <= prixMax);
             }
-
+            //filtrer par marque
             if (!string.IsNullOrEmpty(filter.Marque))
                 ctx = ctx.Where(a => a.marque.Contains(filter.Marque));
 
             var result = ctx.AsEnumerable();
-
+            //filtrer par tags
             if (filter.Tags != null && filter.Tags.Any())
                 result = result.Where(a => a.Tags.Any(t => filter.Tags.Contains(t)));
 
+            //trier
+            result = result.OrderBy(a => a.nom);
+
+            //prendre à partir de...
             if (filter.Offset != null)
                 result = result.Skip(filter.Offset.Value);
 
+            // prendre N items
             if (filter.Limit != null)
                 result = result.Take(filter.Limit.Value);
 
-            return result.OrderBy(a => a.nom);
+            return result;
         }
 
         [HttpGet]
