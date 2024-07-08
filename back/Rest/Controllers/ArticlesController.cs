@@ -73,7 +73,26 @@ namespace Rest.Controllers
             var result = ctx.AsEnumerable();
             //filtrer par tags
             if (filter.Tags != null && filter.Tags.Any())
-                result = result.Where(a => a.Tags.Any(t => filter.Tags.Select(tf => tf.ToLower()).Contains(t.ToLower())));
+            {
+                Func<bool, Func<string, bool>> pred = isExclusive => {
+                    return str =>
+                    {
+                        if (str.Length == 0)
+                            return false;
+                        return (str.First() == '-') ^ !isExclusive;
+                    };
+                };
+                var include = filter.Tags.Where(pred(false)).ToList();
+                var exclude = filter.Tags.Where(pred(true)).Select(str => str.Substring(1)).ToList();
+                Func<IEnumerable<string>, bool, Func<Articles, bool>> predFilter = (tags, invert) =>
+                {
+                    return a => a.Tags.Any(t => tags.Select(tf => tf.ToLower()).Contains(t.ToLower())) ^ invert;
+                };
+                if (include.Any())
+                    result = result.Where(predFilter(include, false));
+                if (exclude.Any())
+                    result = result.Where(predFilter(exclude, true));
+            }
 
             //trier
             switch (filter.TrierPar)
