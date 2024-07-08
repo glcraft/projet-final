@@ -9,16 +9,17 @@ using System.Web.Http.Cors;
 
 namespace Rest.Controllers
 {
+    public class ChangePasswordData {
+        public string old;
+        public string @new;
+    }
     [EnableCors("*", "*", "*")]
-    public class ClientsController : ApiController
+    public class ClientsController : AuthApiController
     {
-        public IEnumerable<Clients> Get()
+        public Clients Get()
         {
-            return new ProjetFinalEntities().Clients.AsEnumerable();
-        }
-        public Clients Get(int id)
-        {
-            return new ProjetFinalEntities().Clients.Find(id);
+            var tokenData = GetData();
+            return new ProjetFinalEntities().Clients.Find(tokenData.Id);
         }
         public void Post([FromBody]Clients client)
         {
@@ -26,17 +27,32 @@ namespace Rest.Controllers
             ctx.Clients.Add(client);
             ctx.SaveChanges();
         }
-        public void Delete(int id)
+        public void Delete()
         {
+            var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
-            var client = ctx.Clients.Find(id);
+            var client = ctx.Clients.Find(tokenData.Id);
             client.archive = DateTime.Now;
             ctx.SaveChanges();
         }
 
         public void Put([FromBody]Clients client)
         {
+            var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
+            ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
+            ctx.SaveChanges();
+        }
+
+        [HttpPost]
+        [Route("api/clients/changepassword")]
+        public void ChangePassword([FromBody] ChangePasswordData data)
+        {
+            var tokenData = GetData();
+            var ctx = new ProjetFinalEntities();
+            var client = ctx.Clients.Find(tokenData.Id);
+            if (!client.ChangePassword(data.old, data.@new))
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
             ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
             ctx.SaveChanges();
         }
