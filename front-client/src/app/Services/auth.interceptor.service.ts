@@ -12,11 +12,12 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
   }
 
   const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`
-  });
+    
+    Authorization: token
+  })
 
   const newReq = req.clone({
-    headers
+    headers: req.headers.append('Authorization', `Bearer ${token}`)
   })
 
   return next(newReq)
