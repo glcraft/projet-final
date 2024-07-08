@@ -2,11 +2,11 @@ import { Panierligne } from "./panierligne";
 
 export class Panier {
     id: number;
-    idClient:  number | null; // peut être null si non identifié
+    idClient:  number | null; // -1 si non connecté
     lignes: Panierligne[];
 
-    constructor(id: number, idClient: number) {
-        this.id = id;
+    constructor(idClient: number) {
+     
         this.idClient = idClient;
         this.lignes = [];
     }

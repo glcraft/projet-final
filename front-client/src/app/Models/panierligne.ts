@@ -1,10 +1,10 @@
 export class Panierligne {
-    idPanier: number;
+   // idPanier: number;
     idArticle: number;
     quantite: number;
 
-    constructor(idPanier: number, idArticle: number, quantite: number) {    
-        this.idPanier = idPanier;
+    constructor(idArticle: number, quantite: number) {    
+       // this.idPanier = idPanier;
         this.idArticle = idArticle;
         this.quantite = quantite;
     }

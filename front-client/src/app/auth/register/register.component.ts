@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Clientregister } from '@app/Models/clientregister';
+import { ArticlesCrudService } from '@app/Services/articles-crud.service';
+import { ClientsCrudService } from '@app/Services/clients-crud.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +22,7 @@ export class RegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
  
-  constructor(private router: Router) { }
+  constructor(private router: Router, private srv: ClientsCrudService) { }
 
   onRegister() {
     this.errorMessage = '';
@@ -56,7 +58,8 @@ export class RegisterComponent {
 
 
     // Call the API to register the user
-    // If the user is successfully registered, redirect to the login page
+
+    this.srv.CreateClient(client);
     // If there is an error, display the error message
     this.successMessage = 'User registered successfully';
     this.router.navigate(['/login']);

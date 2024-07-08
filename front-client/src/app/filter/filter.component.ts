@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Articles } from '@app/Models/articles';
 import { ArticlesCrudService } from '@app/Services/articles-crud.service';
+import { FilterService } from '@app/Services/filter.service';
 
 @Component({
   selector: 'app-filter',
@@ -16,26 +17,36 @@ export class FilterComponent {
     tags: ''
   };
 
-  articles: Articles[] = [];
 
+  articles: Articles[] = [];
   filteredArticles: Array<Articles> = new Array<Articles>();
-  constructor(private srv: ArticlesCrudService) { };
+  constructor(private srv: FilterService) { };
 
   ngOnInit() {
-    this.srv.GetAllArticle()
-      .then(a => this.articles = a)
   }
 
   onSearch() {
     const { priceMin, priceMax, nom, marque, tags } = this.searchCriteria;
     const tagsArray = tags.split(',').map(tag => tag.trim().toLowerCase());
-    this.filteredArticles = this.articles.filter(article => {
-      const isInPriceRange = article.prix >= priceMin && article.prix <= priceMax;
-      const nameMatches = !nom || article.nom.toLowerCase().includes(nom.toLowerCase());
-      const brandMatches = !marque || article.marque.toLowerCase().includes(marque.toLowerCase());
-      const tagsMatch = !tags || tagsArray.some(tag => article.Tags.map(t => t.toLowerCase()).includes(tag));
-      return isInPriceRange && nameMatches && brandMatches && tagsMatch;
-    });
 
+    if (tagsArray.length === 1 && tagsArray[0] === '') { tagsArray.pop(); }
+
+    let toSearch = {
+      "Nom": this.searchCriteria.nom,
+      "Prix": [this.searchCriteria.priceMin, this.searchCriteria.priceMax],
+      "Tags": tagsArray,
+      "Marque": this.searchCriteria.marque
+    }
+    this.getFilteredArticles(toSearch );
+  }
+
+  async getFilteredArticles(toSearch: any) {
+    try {
+      const resp: Array<Articles> = await this.srv.FilterArticles(toSearch);
+      this.filteredArticles = resp;
+      console.log(resp);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des articles:', error);
+    }
   }
 }

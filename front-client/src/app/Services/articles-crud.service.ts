@@ -15,9 +15,19 @@ export class ArticlesCrudService {
     return this.http.get<Array<Articles>>(`${env.baseDomainApi}/api/articles`).toPromise().catch();
   }
 
-  GetArticleById(id: number)
+  /*GetArticleById(id: number)
   {
     return this.http.get<Articles>(`${env.baseDomainApi}/api/articles/${id}`).toPromise().catch();
+  }*/
+
+  async GetArticleById(id: number): Promise<Articles | null> {
+    try {
+      const article = await this.http.get<Articles>(`${env.baseDomainApi}/api/articles/${id}`).toPromise();
+      return article;
+    } catch (error) {
+      console.error('Error fetching article by ID:', error);
+      return null;  
+    }
   }
 
   GetArticleByNom(nom: string)

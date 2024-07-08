@@ -1,0 +1,130 @@
+.card{
+    min-width: 214px;
+}
+
+
+.btnCard {
+    color: #000;
+    background-color: rgb(247, 202, 0);
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    transition-duration: 0.4s;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+
+.toast-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.toast {
+    border: #fff 10px solid;
+    border-radius: 30px; 
+}
+.toast-header{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+.toast-body {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+@keyframes neonShadow {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 8px #fff,
+            inset 0 0 8px #fff,
+            0 0 16px #c6e2ff,
+            inset 0 0 16px #c6e2ff,
+            0 0 32px #c6e2ff,
+            inset 0 0 32px #c6e2ff;
+        background-color: rgba(198, 226, 255, 0.5);
+        /* Couleur de fond semi-transparente */
+    }
+
+    50% {
+        box-shadow:
+            0 0 8px #fff,
+            inset 0 0 8px #fff,
+            0 0 16px #ffd700,
+            /* Jaune fluo */
+            inset 0 0 16px #ffd700,
+            /* Jaune fluo */
+            0 0 32px #ffd700,
+            /* Jaune fluo */
+            inset 0 0 32px #ffd700;
+        /* Jaune fluo */
+        background-color: rgba(255, 255, 0, 0.5);
+        /* Couleur de fond semi-transparente jaune */
+    }
+}
+
+.toast.neon {
+    animation: neonShadow 1s infinite alternate;
+    /* Animation clignotante */
+}
+
+
+
+
+
+
+.btnCard:hover {
+    background-color: rgb(233, 192, 9);
+    border: black 1px solid;
+    scale: 1.1;
+    padding-top: 1px;
+    padding-bottom: 1px;
+
+}
+
+.high-contrast-toast .toast-header {
+    background-color: #000;
+    /* Fond noir pour un fort contraste */
+    color: #fff;
+    /* Texte blanc */
+    border-bottom: 5px solid #555;
+    /* Bordure gris foncé */
+}
+
+.high-contrast-toast .toast-body {
+    background-color: #333;
+    /* Fond gris foncé */
+    color: #fff;
+    /* Texte blanc */
+}
+
+.high-contrast-toast .btn-close {
+    filter: invert(1);
+    /* Inverse les couleurs pour le bouton de fermeture */
+}
+
+.price-text {
+    font-family: 'Arial', sans-serif;
+    
+    font-size: 1.5em;
+    
+    font-weight: bold;
+   
+    color: #ff5733;
+    
+    text-shadow: 1px 1px 2px #000;
+    
+    margin-top: 10px;
+   
+    margin-bottom: 10px;
+    
+    
+}

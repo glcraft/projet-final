@@ -73,6 +73,8 @@ namespace Rest.Controllers
             {
                 result = result.Where(a => a.Tags.Any(t => filter.Tags.Contains(t)));
             }
+            if (filter.Limit != null)
+                result = result.Take(filter.Limit.Value);
 
             return result.OrderBy(a => a.nom);
         }

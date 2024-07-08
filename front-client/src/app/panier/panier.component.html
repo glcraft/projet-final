@@ -1,45 +1,64 @@
 <div class="panierWrapper ">
 
-    <div class="bg-body-secondary p-3">
-        <h2>Panier</h2>
+    <div class="bg-body-secondary p-3 rounded-3">
+        <div *ngIf="panier.lignes.length > 0" class="d-flex align-items-center justify-content-evenly">
+            <h2>Panier</h2>
+            <img  src="../../assets/images/4x.jpg" alt="4x">
+        </div>
+
         <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
+        <div *ngIf="panier.lignes.length > 0">Votre panier contient {{ panier.lignes.length }} article(s).</div>
         <table *ngIf="articlesDuPanier.length>0" class="tablo">
             <thead>
                 <tr>
-                    <th>id article </th>
-                    <th>Désignation</th>
-                    <th class="detail"> prix unitaire</th>
-                    <th class="detail"> qté</th>
+                    <th   ></th>
+
+                    <th></th>
+                    <th class=""> prix unitaire</th>
+                    <th class=""> qté</th>
                     <th class="noPrint">action</th>
                     <th class="total">prix total</th>
                 </tr>
             </thead>
             <tbody *ngFor="let ligne of panier.lignes; let i = index" class="ligne-panier">
                 <tr>
-                    <td> ligne : {{i}}, id: {{ ligne.idArticle }}</td>
-                    <td> {{articlesDuPanier[i].nom}}</td>
-                    <td>{{articlesDuPanier[i].prix}}</td>
-                    <td><input type="number" [(ngModel)]="ligne.quantite"
-                            (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></td>
+                    <td   > <img [src]="formatImg(articlesDuPanier[(getIndex(ligne.idArticle))].image)" alt="article"></td>
+                    <td>
+                        <h3>{{articlesDuPanier[(getIndex(ligne.idArticle))].nom}} </h3>
+                        <p>
+                            {{articlesDuPanier[(getIndex(ligne.idArticle))].resume}}
+                        </p>
+                    </td>
+                    <td>{{ formatPrix(articlesDuPanier[i].prix) }}</td>
 
                     <td>
-                        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
-                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite + 1)">plus</button>
-                        <button (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">moins</button>
+                        <input type="number" class="quantity-input" class="form-control quantity-input" min="1"
+                            [(ngModel)]="ligne.quantite"
+                            (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)">
+                    </td>
+
+                    <td>
+                        <button class="action trash" (click)="supprimerLigne(ligne.idArticle)"><i class="fa fa-trash"
+                                aria-hidden="true" style="pointer-events: none;"></i></button>
+                        <button class="action oneMore"
+                            (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite + 1)">+</button>
+                        <button class="action oneLess"
+                            (click)="mettreAJourQuantite(ligne.idArticle, ligne.quantite-1 )">-</button>
 
                     </td>
-                    <td>{{ ligne.quantite * articlesDuPanier[i].prix}} </td>
+                    <td>{{ formatPrix(ligne.quantite * articlesDuPanier[i].prix) }} </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">Total</td>
-                    <td>{{ totalPanier }}</td>
+                    <td colspan="5">Total</td>
+                    <td>{{ formatPrix(totalPanier) }}</td>
                 </tr>
             </tfoot>
         </table>
         <div *ngIf="articlesDuPanier.length>0" class="d-flex justify-content-evenly align-items-center">
-            <button class="btn btn-primary " (click)="validerPanier()">Valider le Panier</button>
+            <button class="btn btn-primary " routerLink="/">Continuer mes achats</button>
+            <button class="btn btn-success " (click)="onValiderPanier()">Valider le Panier</button>
 
             <button class="btn btn-danger " (click)="viderPanier()">Vider le panier</button>
 
@@ -48,17 +67,42 @@
     </div>
 
 
-
-
 </div>
 
 
 
-<!--
-<div>{{ ligne.idArticle }}</div>
-        <div>Quantité: <input type="number" [(ngModel)]="ligne.quantite"
-                (change)="mettreAJourQuantite(ligne.idArticle, ligne.quantite)"></div>
-        <div>Sous-total: {{ ligne.quantite * getPrixArticle(ligne.idArticle) }}</div>
-        <button (click)="supprimerLigne(ligne.idArticle)">Supprimer</button>
+<ng-template #myModal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Commande</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <p>Commande Enregistrée.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
--->
+
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast high-contrast-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+
+            <img style="height: 35px;" src="../../assets/images/thumb.jpg" class="rounded me-2" alt="...">
+            <strong class="me-auto">Shoot again</strong>
+
+            <small>Commande</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+</div>
