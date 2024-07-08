@@ -1,4 +1,4 @@
-﻿using Rest.DAL;
+using Rest.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,11 +32,11 @@ namespace Rest.Controllers
         //    ctx.Paniers.Remove(ctx.Paniers.Find(id));
         //    ctx.SaveChanges();
         //}
-        public void Put([FromBody]Paniers panier)
-        {
-            var ctx = new ProjetFinalEntities();
-            ctx.Entry(panier).State = System.Data.Entity.EntityState.Modified;
-            ctx.SaveChanges();
-        }
+        //public void Put([FromBody]Paniers panier)
+        //{
+        //    var ctx = new ProjetFinalEntities();
+        //    ctx.Entry(panier).State = System.Data.Entity.EntityState.Modified;
+        //    ctx.SaveChanges();
+        //}
     }
 }
