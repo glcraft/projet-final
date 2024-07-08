@@ -12,11 +12,7 @@
 
                     <div class="">
                         <p class="card-text text-center price-text">{{ formatPrix(card.prix)}}</p>
-                        <ul>
-                            <li *ngFor="let tag of card.Tags" class="badge rounded-pill text-bg-info mx-1">
-                                <a href="/filter?tags={{tag}}">{{tag}}</a>
-                            </li>
-                        </ul>
+                        <app-tags [tags]="card.Tags"></app-tags>
                         <div class="d-flex justify-content-evenly">
                             <a href="product/{{card.id}}" class="btn btn-primary btn-sm btnCard ">Détails</a>
                             <button id="liveToastBtn" class="btn btn-primary btn-sm btnCard"

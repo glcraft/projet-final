@@ -22,6 +22,7 @@ import { FilterComponent } from './filter/filter.component';
 import { ModifyComponent } from './auth/modify/modify.component';
 import { ModalService } from './Services/modal.service';
 import { authInterceptor } from './Services/auth.interceptor.service';
+import { TagsComponent } from './tags/tags.component';
  
 
 @NgModule({
@@ -41,6 +42,7 @@ import { authInterceptor } from './Services/auth.interceptor.service';
     RegisterComponent,
     FilterComponent,
     ModifyComponent,
+    TagsComponent,
  
   ],
   imports: [
