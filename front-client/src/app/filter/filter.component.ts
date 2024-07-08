@@ -37,6 +37,7 @@ export class FilterComponent {
       "Tags": tagsArray,
       "Marque": this.searchCriteria.marque
     }
+    console.log("recherche :",toSearch);
     this.getFilteredArticles(toSearch );
   }
 

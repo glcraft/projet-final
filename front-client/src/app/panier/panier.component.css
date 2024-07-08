@@ -3,8 +3,8 @@
     width: 100%;
     min-width: 1000px;
     margin: auto;
-    height: calc(100% - 120px);
-    min-height: calc(100vh - 120px);
+    height: calc(100% - 130px);
+    min-height: calc(100vh - 130px);
     display: flex;
     justify-content: center;
     align-items: center;
