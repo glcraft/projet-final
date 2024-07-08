@@ -9,6 +9,7 @@ interface SearchCriteria {
   nom?: string;
   marque?: string;
   tags?: string;
+  trierpar?: string;
 }
 
 @Component({
@@ -30,7 +31,8 @@ export class FilterComponent {
         priceMax: params['priceMax'],
         nom: params['nom'],
         marque: params['marque'],
-        tags: params['tags']
+        tags: params['tags'],
+        trierpar: params['trierpar']
       };
       (!this.prices 
         ? this.srv.getPrices().then(p => this.prices = [p[0]/100, p[1]/100]) 
@@ -76,6 +78,7 @@ export class FilterComponent {
       "Prix": this.searchCriteria.priceMin && this.searchCriteria.priceMax ? [this.searchCriteria.priceMin*100, this.searchCriteria.priceMax*100]: undefined,
       "Tags": this.searchCriteria.tags ? this.searchCriteria.tags.split(',').map(tag => tag.trim()): undefined,
       "Marque": this.searchCriteria.marque,
+      "TrierPar": this.searchCriteria.trierpar,
       Limit: 20
     }
   }
@@ -95,7 +98,8 @@ export class FilterComponent {
       priceMax: prices[1],
       nom: !!this.searchCriteria.nom ? this.searchCriteria.nom : undefined,
       marque: !!this.searchCriteria.marque ? this.searchCriteria.marque : undefined,
-      tags: !!this.searchCriteria.tags ? this.searchCriteria.tags : undefined
+      tags: !!this.searchCriteria.tags ? this.searchCriteria.tags : undefined,
+      trierpar: !!this.searchCriteria.trierpar ? this.searchCriteria.trierpar : undefined
     }
   }
 }
