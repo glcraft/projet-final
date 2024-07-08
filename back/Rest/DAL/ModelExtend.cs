@@ -18,4 +18,12 @@ namespace Rest.DAL
             }
         }
     }
+
+    public partial class Clients
+    {
+        public bool VerifPassword(string password)
+        {
+            return this.passwd == password;
+        }
+    }
 }

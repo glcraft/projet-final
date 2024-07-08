@@ -245,7 +245,7 @@
     <Compile Include="DAL\Tags.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\TagsExtend.cs" />
+    <Compile Include="DAL\ModelExtend.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
