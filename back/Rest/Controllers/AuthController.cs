@@ -58,10 +58,10 @@ namespace Rest.Controllers
                 Id = client.id,
                 Nom = client.nom,
                 Email = client.email,
-                AdrLigne1 = client.adr_ligne1,
-                AdrLigne2 = client.adr_ligne2,
-                AdrCp = client.adr_cp,
-                AdrVille = client.adr_ville
+                Adr_ligne1 = client.adr_ligne1,
+                Adr_ligne2 = client.adr_ligne2,
+                Adr_cp = client.adr_cp,
+                Adr_ville = client.adr_ville
             };
 
             return Ok(new { Token = tokenString, Client = clientThrow });
