@@ -51,9 +51,7 @@ namespace Rest.Controllers
             ctx = ctx.Where(a => a.archive == null);
 
             if (!string.IsNullOrEmpty(filter.Nom))
-            {
                 ctx = ctx.Where(a => a.nom.Contains(filter.Nom));
-            }
 
             if (filter.Prix != null && filter.Prix.Length == 2 && filter.Prix[0] >= 0 && filter.Prix[1] >= 0 && filter.Prix[0] <= filter.Prix[1])
             {
@@ -63,16 +61,16 @@ namespace Rest.Controllers
             }
 
             if (!string.IsNullOrEmpty(filter.Marque))
-            {
                 ctx = ctx.Where(a => a.marque.Contains(filter.Marque));
-            }
 
             var result = ctx.AsEnumerable();
 
             if (filter.Tags != null && filter.Tags.Any())
-            {
                 result = result.Where(a => a.Tags.Any(t => filter.Tags.Contains(t)));
-            }
+
+            if (filter.Offset != null)
+                result = result.Skip(filter.Offset.Value);
+
             if (filter.Limit != null)
                 result = result.Take(filter.Limit.Value);
 

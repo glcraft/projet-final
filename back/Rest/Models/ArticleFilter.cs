@@ -11,6 +11,7 @@ namespace Rest.Models
         public int[] Prix { get; set; }
         public string[] Tags { get; set; }
         public string Marque { get; set; }
+        public int? Offset;
         public int? Limit;
     }
 }
