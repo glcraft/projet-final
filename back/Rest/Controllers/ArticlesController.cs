@@ -74,24 +74,16 @@ namespace Rest.Controllers
             //filtrer par tags
             if (filter.Tags != null && filter.Tags.Any())
             {
-                Func<bool, Func<string, bool>> pred = isExclusive => {
-                    return str =>
-                    {
-                        if (str.Length == 0)
-                            return false;
-                        return (str.First() == '-') ^ !isExclusive;
-                    };
+                Func<bool, Func<Articles, bool>> predFilter = (isExclusive) => {
+                    var tags = filter.Tags.Where(tag => tag != null && (tag.Length > 0) && (tag.First() == '-' ^ !isExclusive));
+                    if (isExclusive)
+                        tags = tags.Select(tag => tag.Substring(1));
+                    if (!tags.Any())
+                        return article => true;
+
+                    return article => article.Tags.Any(t => tags.Select(tf => tf.ToLower()).Contains(t.ToLower())) ^ isExclusive;
                 };
-                var include = filter.Tags.Where(pred(false)).ToList();
-                var exclude = filter.Tags.Where(pred(true)).Select(str => str.Substring(1)).ToList();
-                Func<IEnumerable<string>, bool, Func<Articles, bool>> predFilter = (tags, invert) =>
-                {
-                    return a => a.Tags.Any(t => tags.Select(tf => tf.ToLower()).Contains(t.ToLower())) ^ invert;
-                };
-                if (include.Any())
-                    result = result.Where(predFilter(include, false));
-                if (exclude.Any())
-                    result = result.Where(predFilter(exclude, true));
+                result = result.Where(predFilter(false)).Where(predFilter(true));
             }
 
             //trier
