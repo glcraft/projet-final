@@ -25,5 +25,12 @@ namespace Rest.DAL
         {
             return this.passwd == password;
         }
+        public bool ChangePassword(string old, string @new)
+        {
+            if (!VerifPassword(old))
+                return false;
+            passwd = @new;
+            return true;
+        }
     }
 }
