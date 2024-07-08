@@ -66,17 +66,14 @@ export class PanierComponent implements OnInit {
   validerPanier() {
     this.panierService.validerPanier();
     this.panier = this.panierService.getPanier(); // Rafraîchir le panier après validation
-    this.setArticlesDuPanier();
-     
+    this.setArticlesDuPanier() 
   }
 
   viderPanier() {
     this.panierService.viderPanier();
     this.panier = this.panierService.getPanier(); // Rafraîchir le panier après vidage
     this.setArticlesDuPanier();
-
   }
-
 
   ///// modal 
   //// toDo 

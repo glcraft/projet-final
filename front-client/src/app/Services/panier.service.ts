@@ -4,6 +4,7 @@ import { Panier } from '../Models/panier';
 import { Panierligne } from '@app/Models/panierligne';
 import { Router } from '@angular/router';
 import { Clients } from '@app/Models/clients';
+import { PanierCrudService } from './panier-crud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class PanierService {
   private panierSubject = new BehaviorSubject<Panier>(this.panier);
   panier$ = this.panierSubject.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private pannierCrud:PanierCrudService ) { }
 
   //////////////// local Storage ////////////////////////
   private getPanierFromLocalStorage(): Panier | null {
@@ -163,6 +164,9 @@ export class PanierService {
 
     // ToDo
     // enregistrer le panier dans la base de données
+    this.pannierCrud.CreatePanier(panier);
+
+
 
     console.log('Panier validé:', panier);
         this.panier.lignes = [];
