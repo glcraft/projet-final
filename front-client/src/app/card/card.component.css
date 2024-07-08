@@ -1,3 +1,8 @@
+.card{
+    min-width: 214px;
+}
+
+
 .btnCard {
     color: #000;
     background-color: rgb(247, 202, 0);
@@ -120,5 +125,6 @@
     margin-top: 10px;
    
     margin-bottom: 10px;
-     
+    
+    
 }
