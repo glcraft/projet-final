@@ -24,10 +24,5 @@ namespace Rest.DAL
         public string adr_ville { get; set; }
         public Nullable<System.DateTime> archive { private get; set; }
         public string statut { private get; set; }
-
-        public bool VerifPassword(string password)
-        {
-            return this.passwd == password;
-        }
     }
 }
