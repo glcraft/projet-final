@@ -30,17 +30,12 @@ namespace FillDb
 
             StoreService store = new StoreService(steam);
             var listApps = await store.GetListApps(new GetListAppsOptions { max_results = 200 });
-            var tasks = new List<Task>();
-            Mutex mutex = new Mutex();
             foreach (var app in listApps.apps)
             {
-                tasks.Add(Task.Run(async () =>
-                {
                     var appInfo = await steam.AppDetails(app.appid);
                     var moreInfo = await sspy.GetInfo(app.appid);
                     if (!db.Articles.Where(a => a.nom == appInfo.name).Any())
                     {
-                        mutex.WaitOne();
                         var dbArticle = db.Articles.Add(new Articles
                         {
                             nom = appInfo.name,
@@ -67,12 +62,8 @@ namespace FillDb
                             dbTag.Articles.Add(dbArticle);
                         }
                         await db.SaveChangesAsync();
-                        mutex.ReleaseMutex();
                     }
-                }));
             }
-
-            await Task.WhenAll(tasks);
         }
         static void Main(string[] args)
         {
