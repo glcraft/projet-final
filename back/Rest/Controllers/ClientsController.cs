@@ -23,16 +23,18 @@ namespace Rest.Controllers
             ctx.Clients.Add(client);
             ctx.SaveChanges();
         }
-        public void Delete(int id)
+        public void Delete()
         {
+            var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
-            var client = ctx.Clients.Find(id);
+            var client = ctx.Clients.Find(tokenData.Id);
             client.archive = DateTime.Now;
             ctx.SaveChanges();
         }
 
         public void Put([FromBody]Clients client)
         {
+            var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
             ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
             ctx.SaveChanges();
