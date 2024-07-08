@@ -19,20 +19,26 @@ namespace Rest.Controllers
         public List<CreatePanierLigne> lignes;
     }
     [EnableCors("*", "*", "*")]
-    public class PaniersController : ApiController
+    public class PaniersController : AuthApiController
     {
         public IEnumerable<Paniers> Get()
         {
-            return new ProjetFinalEntities().Paniers.AsEnumerable();
+            return GetClientPanier().AsEnumerable();
         }
         public Paniers Get(int id)
         {
-            return new ProjetFinalEntities().Paniers.Find(id);
+            var result = GetClientPanier()
+                .Where(p => p.id == id)
+                .FirstOrDefault();
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            return result;
         }
         public void Post([FromBody]CreatePanier panier)
         {
+            var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
-            var dbPanier = ctx.Paniers.Add(new Paniers { id_client = 2, datetime = DateTime.Now });
+            var dbPanier = ctx.Paniers.Add(new Paniers { id_client = tokenData.Id, datetime = DateTime.Now });
             foreach (var ligne in panier.lignes)
             {
                 dbPanier.PanierLignes.Add(new PanierLignes
@@ -43,6 +49,11 @@ namespace Rest.Controllers
                 });
             }
             ctx.SaveChanges();
+        }
+        private IQueryable<Paniers> GetClientPanier()
+        {
+            var tokenData = GetData();
+            return new ProjetFinalEntities().Paniers.Where(p => p.id_client == tokenData.Id);
         }
         //public void Delete(int id)
         //{
