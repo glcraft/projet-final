@@ -12,7 +12,7 @@
                         <h2 class="card-title">{{ product.nom }}</h2>
                         <ul>
                             <li *ngFor="let tag of product.Tags" class="badge rounded-pill text-bg-info mx-1">
-                                {{tag}}
+                                <a href="/filter?tags={{tag}}">{{tag}}</a>
                             </li>
                         </ul>
                     </div>

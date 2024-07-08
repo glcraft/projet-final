@@ -14,7 +14,7 @@
                         <p class="card-text text-center price-text">{{ formatPrix(card.prix)}}</p>
                         <ul>
                             <li *ngFor="let tag of card.Tags" class="badge rounded-pill text-bg-info mx-1">
-                                {{tag}}
+                                <a href="/filter?tags={{tag}}">{{tag}}</a>
                             </li>
                         </ul>
                         <div class="d-flex justify-content-evenly">
