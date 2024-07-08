@@ -13,6 +13,10 @@ export class PanierCrudService {
 
   CreatePanier(p: Panier)
   {
+
+    console.log ("panier post article", p);
+
+
     const body = JSON.stringify(p);
 
     this.http.post(`${env.baseDomainApi}/api/panier`, body, {

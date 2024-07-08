@@ -3,7 +3,7 @@
     <div class="bg-body-secondary p-3 rounded-3">
         <div *ngIf="panier.lignes.length > 0" class="d-flex align-items-center justify-content-evenly">
             <h2>Panier</h2>
-            <img  src="../../assets/images/4x.jpg" alt="4x">
+            <img src="../../assets/images/4x.jpg" alt="4x">
         </div>
 
         <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
@@ -11,7 +11,7 @@
         <table *ngIf="articlesDuPanier.length>0" class="tablo">
             <thead>
                 <tr>
-                    <th   ></th>
+                    <th></th>
 
                     <th></th>
                     <th class=""> prix unitaire</th>
@@ -21,16 +21,17 @@
                 </tr>
             </thead>
             <tbody *ngFor="let ligne of panier.lignes; let i = index" class="ligne-panier">
-                <tr>
-                    <td   > <img [src]="formatImg(articlesDuPanier[(getIndex(ligne.idArticle))].image)" alt="article"></td>
-                    <td>
+                <tr *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]">
+                    <td *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]"> <img
+                            [src]="formatImg(articlesDuPanier[(getIndex(ligne.idArticle))].image)" alt="article"></td>
+                    <td *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]">
                         <h3>{{articlesDuPanier[(getIndex(ligne.idArticle))].nom}} </h3>
                         <p>
                             {{articlesDuPanier[(getIndex(ligne.idArticle))].resume}}
                         </p>
                     </td>
-                    <td>{{ formatPrix(articlesDuPanier[i].prix) }}</td>
-
+                    <td *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]">
+                        {{ formatPrix(articlesDuPanier[i].prix) }}</td>
                     <td>
                         <input type="number" class="quantity-input" class="form-control quantity-input" min="1"
                             [(ngModel)]="ligne.quantite"
