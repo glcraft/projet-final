@@ -41,7 +41,7 @@ export class ProductComponent {
   }
 
   formatImg(image: string) {
-    return `../../../assets/images/${image}`;
+    return image;
   }
 
   formatPrix(centimes: number): string {
