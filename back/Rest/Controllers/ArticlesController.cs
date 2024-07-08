@@ -9,6 +9,10 @@ using System.Web.Http.Cors;
 using System.Web.Routing;
 using System.Security.Principal;
 using Rest.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Rest.Controllers
 {
@@ -19,6 +23,7 @@ namespace Rest.Controllers
         {
             return new ProjetFinalEntities().Articles.Include("TagsPriv").AsEnumerable();
         }
+
         public Articles Get(int id)
         {
             return new ProjetFinalEntities().Articles.Include("TagsPriv").Where(article => article.id == id).First();
@@ -87,6 +92,29 @@ namespace Rest.Controllers
             int?[] result = { PrixMin, PrixMax };
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("api/protected")]
+        public IHttpActionResult GetProtectedData()
+        {
+            var authHeader = Request.Headers.Authorization;
+            if (authHeader == null || authHeader.Scheme != "Bearer")
+            {
+                return Unauthorized();
+            }
+
+            var token = authHeader.Parameter;
+            var claimsPrincipal = JwtUtils.ValidateToken(token);
+
+            if (claimsPrincipal == null)
+            {
+                return Unauthorized();
+            }
+
+            var idClaim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "ClientId")?.Value;
+            var emailClaim = claimsPrincipal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            return Ok(new { Email = emailClaim, Id = idClaim, Message = "This is protected data." });
         }
     }
 }
