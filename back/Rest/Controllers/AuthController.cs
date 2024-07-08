@@ -66,37 +66,5 @@ namespace Rest.Controllers
 
             return Ok(new { Token = tokenString, Client = clientThrow });
         }
-
-        /*
-        public int? ValidateToken(string token)
-        {
-            if (token == null) return null;
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes("aP$3jKl1B9sZ8o5W2vG!7xD6yN@mQ4Rt");
-
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "ClientId").Value);
-
-                return userId;
-            }
-            catch
-            {
-                // return null if validation fails
-                return null;
-            }
-        }*/
     }
 }
