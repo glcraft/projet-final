@@ -4,6 +4,8 @@ import { Panier } from '../Models/panier';
 import { Panierligne } from '@app/Models/panierligne';
 import { Router } from '@angular/router';
 import { Clients } from '@app/Models/clients';
+import { PanierCrudService } from './panier-crud.service';
+ 
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,15 @@ import { Clients } from '@app/Models/clients';
 
 //////// class de service pour la gestion du panier //////////
 export class PanierService {
-
+ 
   clientId: number = -1;
+  userlogged: any = null;
 
   private panier: Panier = this.getPanierFromLocalStorage() || new Panier(this.clientId);
   private panierSubject = new BehaviorSubject<Panier>(this.panier);
   panier$ = this.panierSubject.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private pannierCrud:PanierCrudService,   ) { }
 
   //////////////// local Storage ////////////////////////
   private getPanierFromLocalStorage(): Panier | null {
@@ -35,11 +38,9 @@ export class PanierService {
   ajouterAuPanier(idArticle: number, quantite: number) {
 
     // check si l'id de luser en session storage est le même que celui du panier
+    this.userlogged = JSON.parse(localStorage.getItem('client')) ;
+    let connectedClientId = this.userlogged ? (this.userlogged.Id) : null;
 
-    const userLogged = sessionStorage.getItem('userLogged');
-    let connectedClientId = userLogged ? (JSON.parse(userLogged).id) : Number(-1);
-
-    // check si un pannier exsite deja dans le local storage
     let panierData = localStorage.getItem('panier');
 
     ////  pas panier dans le local storage
@@ -54,7 +55,6 @@ export class PanierService {
         // si client différent, on crée un nouveau panier
         this.panier = new Panier(connectedClientId);
       }
-
     }
 
     const existingLineIndex = this.panier.lignes.findIndex(line => line.idArticle === idArticle);
@@ -67,7 +67,6 @@ export class PanierService {
       this.panier.lignes.push(nouvelleLigne);
     }
     this.saveAndNotifyPanierChange();
-    
   }
 
   //////////////   maj quantité //////////////////////////
@@ -107,7 +106,10 @@ export class PanierService {
     let panier = JSON.parse(panierData);
 
     // check si il y a bien un client connecté et que l'id client n'est pas -1 
-    const userLogged = sessionStorage.getItem('userLogged');
+
+    this.userlogged = JSON.parse(localStorage.getItem('client'));
+    let connectedClientId = this.userlogged ? (this.userlogged.Id) : null;
+
     const token = localStorage.getItem('token');
     const client = localStorage.getItem('client')
 
@@ -116,15 +118,15 @@ export class PanierService {
       alert('Vous devez être connecté pour valider votre panier.');
       this.router.navigate(['/login']);
     } 
-    else if (token != null && panier.idClient == -1) 
+    else if (token != null && panier.idClient == null) 
       {  // si client non connecté quand fait son panier - recupère la commande
-      panier.idClient = JSON.parse(client).id;
+      panier.idClient = connectedClientId;
       this.processCommand(panier);
     } 
     else 
     {
       //check si le panier n'est pas vide et que le client connecté est le même que celui du panier
-      if (this.panier.lignes.length > 0 && panier.idClient == JSON.parse(client).id) {
+      if (this.panier.lignes.length > 0 && panier.idClient == connectedClientId) {
         // on enregistre le panier dans la base de données
         this.processCommand(panier);
       } 
@@ -160,10 +162,7 @@ export class PanierService {
   }
 
   processCommand(panier){
-
-    // ToDo
-    // enregistrer le panier dans la base de données
-
+    this.pannierCrud.CreatePanier(panier);
     console.log('Panier validé:', panier);
         this.panier.lignes = [];
         this.saveAndNotifyPanierChange();
