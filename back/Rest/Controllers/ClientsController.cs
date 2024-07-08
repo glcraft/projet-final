@@ -1,4 +1,4 @@
-﻿using Rest.DAL;
+using Rest.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +10,12 @@ using System.Web.Http.Cors;
 namespace Rest.Controllers
 {
     [EnableCors("*", "*", "*")]
-    public class ClientsController : ApiController
+    public class ClientsController : AuthApiController
     {
-        public IEnumerable<Clients> Get()
+        public Clients Get()
         {
-            return new ProjetFinalEntities().Clients.AsEnumerable();
-        }
-        public Clients Get(int id)
-        {
-            return new ProjetFinalEntities().Clients.Find(id);
+            var tokenData = GetData();
+            return new ProjetFinalEntities().Clients.Find(tokenData.Id);
         }
         public void Post([FromBody]Clients client)
         {
