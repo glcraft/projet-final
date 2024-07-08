@@ -28,7 +28,7 @@ export class LoginComponent {
       this.authSrv.login(email, pwd).subscribe(
         response => {
           console.log('API response:', response);
-          const token = response?.Token; // Assurez-vous que le token est bien accessible
+          const token = response?.Token;
           const client = response?.Client;
           let errors = []
           if (token == null)

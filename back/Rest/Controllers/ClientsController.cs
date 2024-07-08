@@ -33,6 +33,7 @@ namespace Rest.Controllers
             client.archive = DateTime.Now;
             ctx.SaveChanges();
         }
+
         public void Put([FromBody]Clients client)
         {
             var ctx = new ProjetFinalEntities();

@@ -251,6 +251,7 @@
     </Compile>
     <Compile Include="Models\AccountBindingsModel.cs" />
     <Compile Include="Models\ArticleFilter.cs" />
+    <Compile Include="Models\JwtUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

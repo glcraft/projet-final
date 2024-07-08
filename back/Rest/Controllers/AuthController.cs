@@ -44,7 +44,8 @@ namespace Rest.Controllers
                 audience: "https://localhost:61306", // Remplacer par votre domaine
                 claims: new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, client.email)
+                    new Claim(ClaimTypes.Name, client.email),
+                    new Claim("ClientId", client.id.ToString())
                 },
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signinCredentials
