@@ -19,7 +19,7 @@ export class PanierCrudService {
 
     const body = JSON.stringify(p);
 
-    this.http.post(`${env.baseDomainApi}/api/panier`, body, {
+    this.http.post(`${env.baseDomainApi}/api/paniers`, body, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
