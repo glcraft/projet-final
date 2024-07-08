@@ -20,6 +20,9 @@ export class FilterService {
       })
     }));
   }
+  async getPrices(): Promise<Array<number>> {
+    return firstValueFrom(this.http.get<Array<number>>(`${env.baseDomainApi}/api/articles/prix`));
+  }
 }
 
 
