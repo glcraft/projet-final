@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SearchService } from '@app/Services/search.service';
+import { Articles } from '@app/Models/articles';
+import { FilterService } from '@app/Services/filter.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,12 @@ import { SearchService } from '@app/Services/search.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  articles: Array<Articles> = [];
+  constructor(public searchService: FilterService) {
 
+  }
 
+  async ngOnInit() {
+    this.articles = await this.searchService.FilterArticles({limit: 3*8})
+  }
 }
