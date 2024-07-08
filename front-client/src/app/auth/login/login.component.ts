@@ -30,33 +30,26 @@ export class LoginComponent {
           console.log('API response:', response);
           const token = response?.Token; // Assurez-vous que le token est bien accessible
           const client = response?.Client;
+          let errors = []
+          if (token == null)
+            errors.push('Token is undefined in the API response')
 
-          if (token) 
-          {
-            localStorage.setItem('token', token);
-            console.log('Token stored:', token);
-          } 
-          else 
-          {
-            console.error('Token is undefined in the API response');
+          if (client == null)
+            errors.push('Client is undefined in the API response');
+            
+          if (errors.length > 0) {
+            console.error();
+            return
           }
 
-          if (client) 
-          {
-            localStorage.setItem('client', JSON.stringify(client));
-            console.log('Client stored:', client);
-          } 
-          else 
-          {
-            console.error('Client is undefined in the API response');
-          }
+          localStorage.setItem('token', token);
+          console.log('Token stored:', token);
 
-          if(token && client)
-          {
-            alert("login successful");
-            this.authSrv.updateLoginStatus(true);
-            this.router.navigate(['/']);
-          }
+          localStorage.setItem('client', JSON.stringify(client));
+          console.log('Client stored:', client);
+
+          this.authSrv.updateLoginStatus(true);
+          this.router.navigate(['/']);
         },
         error => {
           this.error = 'Invalid login credentials';
