@@ -30,7 +30,6 @@ export class PanierComponent implements OnInit {
   }
  // tableau d'articles du panier er calcul du total du panier
   setArticlesDuPanier() {
-    console.log (this.panier)
     this.totalPanier = 0;
     this.articlesDuPanier = [];
     this.panier.lignes.forEach(async (ligne) => {

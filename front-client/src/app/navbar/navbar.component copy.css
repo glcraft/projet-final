@@ -1,0 +1,14 @@
+.navBarWrapper{
+    
+    height: 70px;  top:0; width: 100%;
+}
+
+.container-fluid{
+    border-top: black solid 2px ;
+    height: 68px; 
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+}
+ 
