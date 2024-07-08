@@ -8,17 +8,11 @@
             </div>
             <div class="bas">
                 <div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="card-title">{{ product.nom }}</h2>
-                        <ul>
-                            <li *ngFor="let tag of product.Tags" class="badge rounded-pill text-bg-info mx-1">
-                                {{tag}}
-                            </li>
-                        </ul>
-                    </div>
+                    <h2 class="card-title w-100 text-center">{{ product.nom }}</h2><br>
+                    <app-tags [tags]="product.Tags"></app-tags>
 
                     <p class="card-text">{{ product.resume }}</p>
-                    <p class="card-text">{{ product.description }}</p>
+                    <div class="card-text" [innerHTML]="product.description">
                 </div>
 
                 <div class="d-flex justify-content-evenly  align-items-center mt-2">
