@@ -6,13 +6,30 @@
             <img src="../../assets/images/4x.jpg" alt="4x">
         </div>
 
-        <div *ngIf="panier.lignes.length === 0">Votre panier est vide.</div>
+        <div *ngIf="panier.lignes.length === 0">
+            <div class="container text-center mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="empty-cart">
+                        
+                            <i class="fa-solid fa-7x fa-basket-shopping "></i>
+                            <h2>Votre panier est vide</h2>
+                            <p class="lead">Il semble que vous n'ayez pas encore ajouté d'articles à votre panier.</p>
+                            <p class="lead">Vous allez être redirigé vers la page d'accueil dans quelques secondes...
+                            </p>
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div *ngIf="panier.lignes.length > 0">Votre panier contient {{ panier.lignes.length }} article(s).</div>
         <table *ngIf="articlesDuPanier.length>0" class="tablo">
             <thead>
                 <tr>
                     <th></th>
-
                     <th></th>
                     <th class=""> prix unitaire</th>
                     <th class=""> qté</th>

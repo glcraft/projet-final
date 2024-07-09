@@ -9,9 +9,7 @@ import { SearchService } from '@app/Services/search.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
   isLogged = false;
-
 
   constructor(private searchService: SearchService, private panierService: PanierService, private authService: AuthService) { }
 
@@ -19,7 +17,6 @@ export class NavbarComponent {
     const inputElement = event.target as HTMLInputElement;
     this.searchService.setSearchValue(inputElement.value);
   }
-
 
   getNbArticles() {
     return this.panierService.getNbArticles();
@@ -36,5 +33,4 @@ export class NavbarComponent {
     this.authService.logout();
     this.isLogged = false;
   }
-
 }

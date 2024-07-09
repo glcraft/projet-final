@@ -13,6 +13,7 @@ import { ClientsCrudService } from '@app/Services/clients-crud.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+ 
   errorMessage: string = '';
   listeC: Array<Clients>;
 
@@ -24,7 +25,7 @@ export class LoginComponent {
   {
     if(form.valid)
     {
-      const {email, pwd} = form.value;
+      const {email, pwd, rememberme} = form.value;
       this.authSrv.login(email, pwd).subscribe(
         response => {
           console.log('API response:', response);
@@ -40,6 +41,12 @@ export class LoginComponent {
           if (errors.length > 0) {
             console.error();
             return
+          }
+
+          if (!rememberme) {
+            localStorage.setItem('forgetMe', "yes");
+          } else {
+            localStorage.removeItem('forgetMe');
           }
 
           localStorage.setItem('token', token);
