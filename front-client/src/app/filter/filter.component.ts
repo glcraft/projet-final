@@ -12,6 +12,8 @@ interface SearchCriteria {
   trierpar?: string;
 }
 
+const SEARCH_LIMIT = 20;
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -23,6 +25,9 @@ export class FilterComponent {
 
   articles: Articles[] = [];
   filteredArticles: Array<Articles> = new Array<Articles>();
+
+  lastArticle = 0;
+  noMoreArticles = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private srv: FilterService) { 
     this.activatedRoute.queryParams.subscribe(params => {
@@ -47,11 +52,17 @@ export class FilterComponent {
   };
 
   async ngOnInit() {
-    this.updateFilteredArticles(this.transformSearchOptions());
+    await this.initArticles();
   }
 
-  onSearch() {
-    this.updateFilteredArticles(this.transformSearchOptions());
+  async initArticles() {
+    this.lastArticle = 0;
+    this.filteredArticles = new Array<Articles>();
+    await this.updateFilteredArticles(this.transformSearchOptions());
+  }
+
+  async onSearch() {
+    await this.initArticles();
 
     this.router.navigate(
       [], 
@@ -62,11 +73,19 @@ export class FilterComponent {
       }
     );
   }
+  loadMore() {
+    this.updateFilteredArticles(this.transformSearchOptions());
+  }
 
   async updateFilteredArticles(toSearch: any) {
     try {
       const resp: Array<Articles> = await this.srv.FilterArticles(toSearch);
-      this.filteredArticles = resp;
+      if (resp.length == 0) {
+        this.noMoreArticles = true;
+        return;
+      }
+      this.filteredArticles = this.filteredArticles.concat(resp);
+      this.lastArticle+=SEARCH_LIMIT;
     } catch (error) {
       console.error('Erreur lors de la récupération des articles:', error);
     }
@@ -79,7 +98,8 @@ export class FilterComponent {
       "Tags": this.searchCriteria.tags ? this.searchCriteria.tags.split(',').map(tag => tag.trim()): undefined,
       "Marque": this.searchCriteria.marque,
       "TrierPar": this.searchCriteria.trierpar,
-      Limit: 20
+      Limit: SEARCH_LIMIT,
+      Offset: this.lastArticle
     }
   }
 

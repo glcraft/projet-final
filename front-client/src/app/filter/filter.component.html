@@ -41,4 +41,5 @@
         </div>
     </form>
     <app-cards [articles]="filteredArticles"></app-cards>
+    <button class="btn btn-primary w-100 my-1" (click)="loadMore()" [disabled]="noMoreArticles">Plus d'articles</button>
 </div>    
