@@ -4,8 +4,11 @@
         <h5 class="card-title">{{ article.nom }}</h5>
         <p class="card-text">{{ article.resume }}</p>
         <p class="card-text">Prix: {{ article.prix/100 }}€</p>
-        <p class="card-text">Marque: {{ article.marque }}</p>
-        <a href="/product/{{ article.id }}" class="btn btn-primary w-100">Voir l'article</a><br>
+        <p class="card-text">Développeur: {{ article.marque }}</p>
+        <div class="mb-2">
+         <app-tags [tags]="article.Tags"></app-tags>   
+        </div>
+        <a href="/product/{{ article.id }}" class="btn btn-primary w-100 mb-1">Voir l'article</a><br>
         <button class="btn btn-success w-100" (click)="ajouterAuPanier()">Ajouter au panier</button>
     </div>
 </div>
