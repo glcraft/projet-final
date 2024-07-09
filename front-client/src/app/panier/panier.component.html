@@ -40,7 +40,7 @@
             <tbody *ngFor="let ligne of panier.lignes; let i = index" class="ligne-panier">
                 <tr *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]">
                     <td *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]"> <img
-                            [src]="formatImg(articlesDuPanier[(getIndex(ligne.idArticle))].image)" alt="article"></td>
+                            [src]="articlesDuPanier[(getIndex(ligne.idArticle))].image" alt="article"></td>
                     <td *ngIf="articlesDuPanier[(getIndex(ligne.idArticle))]">
                         <h3>{{articlesDuPanier[(getIndex(ligne.idArticle))].nom}} </h3>
                         <p>
