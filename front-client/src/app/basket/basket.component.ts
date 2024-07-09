@@ -20,27 +20,6 @@ export class BasketComponent {
     this.loadPaniers();
   }
 
-  /*async loadPaniers() {
-    try {
-      const data = await this.srvPanier.GetAllPaniersByClient().toPromise();
-      this.paniers = data;
-      console.log(this.paniers)
-      for (let panier of this.paniers) {
-        console.log("Inspecter panier : ", panier)
-        if (panier.Lignes && Array.isArray(panier.Lignes)) {
-          for (let ligne of panier.Lignes) {
-            console.log('Inspecter ligne:', ligne);
-            let article = await this.srvArticle.GetArticleById(ligne.IdArticle);
-            ligne.articleDetails = article;
-            console.log(ligne.articleDetails);
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error loading paniers:', error);
-    }
-  }*/
-
     async loadPaniers() {
       try {
         const data = await this.srvPanier.GetAllPaniersByClient().toPromise();
