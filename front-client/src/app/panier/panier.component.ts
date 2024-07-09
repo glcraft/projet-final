@@ -101,7 +101,7 @@ export class PanierComponent implements OnInit {
     return formatPrixEuros(centimes);
   }
   formatImg(image: string) {
-    return `../../../assets/images/${image}`;
+    return `${image}`;
   }
 
 
