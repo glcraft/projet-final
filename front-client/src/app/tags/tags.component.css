@@ -1,0 +1,14 @@
+.app-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.app-tag {
+    border-radius: 5px;
+    border: 1px solid var(--bs-link-color);
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}

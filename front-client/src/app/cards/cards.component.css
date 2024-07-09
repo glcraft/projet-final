@@ -1,0 +1,70 @@
+.toast {
+    border: #fff 10px solid;
+    border-radius: 30px; 
+}
+.toast-header{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+.toast-body {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+@keyframes neonShadow {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 8px #fff,
+            inset 0 0 8px #fff,
+            0 0 16px #c6e2ff,
+            inset 0 0 16px #c6e2ff,
+            0 0 32px #c6e2ff,
+            inset 0 0 32px #c6e2ff;
+        background-color: rgba(198, 226, 255, 0.5);
+        /* Couleur de fond semi-transparente */
+    }
+
+    50% {
+        box-shadow:
+            0 0 8px #fff,
+            inset 0 0 8px #fff,
+            0 0 16px #ffd700,
+            /* Jaune fluo */
+            inset 0 0 16px #ffd700,
+            /* Jaune fluo */
+            0 0 32px #ffd700,
+            /* Jaune fluo */
+            inset 0 0 32px #ffd700;
+        /* Jaune fluo */
+        background-color: rgba(255, 255, 0, 0.5);
+        /* Couleur de fond semi-transparente jaune */
+    }
+}
+
+.toast.neon {
+    animation: neonShadow 1s infinite alternate;
+    /* Animation clignotante */
+}
+
+.high-contrast-toast .toast-header {
+    background-color: #000;
+    /* Fond noir pour un fort contraste */
+    color: #fff;
+    /* Texte blanc */
+    border-bottom: 5px solid #555;
+    /* Bordure gris foncé */
+}
+
+.high-contrast-toast .toast-body {
+    background-color: #333;
+    /* Fond gris foncé */
+    color: #fff;
+    /* Texte blanc */
+}
+
+.high-contrast-toast .btn-close {
+    filter: invert(1);
+    /* Inverse les couleurs pour le bouton de fermeture */
+}

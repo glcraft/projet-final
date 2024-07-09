@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { CarouselComponent } from './carousel/carousel.component';
 import { NavbarComponent } from './navbar/navbar.component';
+// import { CardComponent } from './_card/card.component';
 import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
@@ -22,6 +23,8 @@ import { FilterComponent } from './filter/filter.component';
 import { ModifyComponent } from './auth/modify/modify.component';
 import { ModalService } from './Services/modal.service';
 import { authInterceptor } from './Services/auth.interceptor.service';
+import { TagsComponent } from './tags/tags.component';
+import { CardsComponent } from './cards/cards.component';
  
 
 @NgModule({
@@ -41,6 +44,8 @@ import { authInterceptor } from './Services/auth.interceptor.service';
     RegisterComponent,
     FilterComponent,
     ModifyComponent,
+    TagsComponent,
+    CardsComponent,
  
   ],
   imports: [

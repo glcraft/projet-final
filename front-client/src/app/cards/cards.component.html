@@ -1,0 +1,19 @@
+<div class="row mt-5" *ngIf="articles.length > 0">
+    <app-card class="col-md-4" *ngFor="let article of articles" [article]="article"></app-card>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast neon high-contrast-toast" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="toast-header">
+
+            <img style="height: 35px;" src="../../assets/images/thumb.jpg" class="rounded me-2" alt="...">
+            <strong class="me-auto">Shoot again</strong>
+
+            <small>Bien joué !</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+</div>

@@ -1,14 +1,10 @@
-<p>basket works!</p>
 <div class="panierWrapper">
     <div class="mb-2" *ngFor="let panier of paniers">
     <div class="bg-body-secondary p-3 rounded-3">
       <div *ngIf="panier.Lignes.length > 0" class="d-flex align-items-center justify-content-evenly">
         <h2>Commandes #{{ panier.Id }}</h2>
-        <h4>Date {{ panier.DateTime|date:"short" }}</h4>
+        <h4>Passée le {{ panier.DateTime | date:"dd/MM/yyyy 'à' HH:mm" }}</h4>
       </div>
-  
-      <div *ngIf="panier.Lignes.length === 0">Votre panier est vide.</div>
-      <div *ngIf="panier.Lignes.length > 0">Votre commande contient {{ panier.Lignes.length }} article(s).</div>
       <table *ngIf="panier.Lignes.length > 0" class="tablo">
         <thead>
           <tr>
@@ -22,7 +18,7 @@
         <tbody *ngFor="let ligne of panier.Lignes">
           <tr *ngIf="articlesDuPanier[ligne.IdArticle]">
             <td>
-              <img [src]="formatImg(articlesDuPanier[ligne.IdArticle]?.image)" alt="article">
+              <img [src]="articlesDuPanier[ligne.IdArticle]?.image" alt="article">
             </td>
             <td>
               <h3>{{ articlesDuPanier[ligne.IdArticle]?.nom }}</h3>

@@ -57,7 +57,7 @@ namespace Rest.Controllers
 
             //filtrer par nom
             if (!string.IsNullOrEmpty(filter.Nom))
-                ctx = ctx.Where(a => a.nom.Contains(filter.Nom));
+                ctx = ctx.Where(a => a.nom.ToLower().Contains(filter.Nom.ToLower()));
 
             //filtrer par prix
             if (filter.Prix != null && filter.Prix.Length == 2 && filter.Prix[0] >= 0 && filter.Prix[1] >= 0 && filter.Prix[0] <= filter.Prix[1])
@@ -68,15 +68,41 @@ namespace Rest.Controllers
             }
             //filtrer par marque
             if (!string.IsNullOrEmpty(filter.Marque))
-                ctx = ctx.Where(a => a.marque.Contains(filter.Marque));
+                ctx = ctx.Where(a => a.marque.ToLower().Contains(filter.Marque.ToLower()));
 
             var result = ctx.AsEnumerable();
             //filtrer par tags
             if (filter.Tags != null && filter.Tags.Any())
-                result = result.Where(a => a.Tags.Any(t => filter.Tags.Contains(t)));
+            {
+                Func<bool, Func<Articles, bool>> predFilter = (isExclusive) => {
+                    var tags = filter.Tags.Where(tag => tag != null && (tag.Length > 0) && (tag.First() == '-' ^ !isExclusive));
+                    if (isExclusive)
+                        tags = tags.Select(tag => tag.Substring(1));
+                    if (!tags.Any())
+                        return article => true;
+
+                    return article => article.Tags.Any(t => tags.Select(tf => tf.ToLower()).Contains(t.ToLower())) ^ isExclusive;
+                };
+                result = result.Where(predFilter(false)).Where(predFilter(true));
+            }
 
             //trier
-            result = result.OrderBy(a => a.nom);
+            switch (filter.TrierPar)
+            {
+                case "id":
+                    result = result.OrderBy(a => a.id);
+                    break;
+                case "prix":
+                    result = result.OrderBy(a => a.prix);
+                    break;
+                case "date_ajout":
+                    result = result.OrderBy(a => a.date_dajout);
+                    break;
+                case "nom":
+                default:
+                    result = result.OrderBy(a => a.nom);
+                    break;
+            }
 
             //prendre à partir de...
             if (filter.Offset != null)
