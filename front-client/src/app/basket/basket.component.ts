@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Articles } from '@app/Models/articles';
 import { ArticlesCrudService } from '@app/Services/articles-crud.service';
 import { PanierCrudService } from '@app/Services/panier-crud.service';
+import { formatPrixEuros } from '@app/utils/utils';
 
 @Component({
   selector: 'app-basket',
@@ -64,6 +65,6 @@ export class BasketComponent {
     }
   
     formatPrix(prix: number): string {
-      return prix.toFixed(2) + '€';
+      return formatPrixEuros(prix);
     }
 }
