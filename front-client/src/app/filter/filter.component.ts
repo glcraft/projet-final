@@ -9,7 +9,10 @@ interface SearchCriteria {
   nom?: string;
   marque?: string;
   tags?: string;
+  trierpar?: string;
 }
+
+const SEARCH_LIMIT = 20;
 
 @Component({
   selector: 'app-filter',
@@ -23,6 +26,9 @@ export class FilterComponent {
   articles: Articles[] = [];
   filteredArticles: Array<Articles> = new Array<Articles>();
 
+  lastArticle = 0;
+  noMoreArticles = false;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private srv: FilterService) { 
     this.activatedRoute.queryParams.subscribe(params => {
       this.searchCriteria = {
@@ -30,7 +36,8 @@ export class FilterComponent {
         priceMax: params['priceMax'],
         nom: params['nom'],
         marque: params['marque'],
-        tags: params['tags']
+        tags: params['tags'],
+        trierpar: params['trierpar']
       };
       (!this.prices 
         ? this.srv.getPrices().then(p => this.prices = [p[0]/100, p[1]/100]) 
@@ -45,11 +52,17 @@ export class FilterComponent {
   };
 
   async ngOnInit() {
-    this.updateFilteredArticles(this.transformSearchOptions());
+    await this.initArticles();
   }
 
-  onSearch() {
-    this.updateFilteredArticles(this.transformSearchOptions());
+  async initArticles() {
+    this.lastArticle = 0;
+    this.filteredArticles = new Array<Articles>();
+    await this.updateFilteredArticles(this.transformSearchOptions());
+  }
+
+  async onSearch() {
+    await this.initArticles();
 
     this.router.navigate(
       [], 
@@ -60,11 +73,19 @@ export class FilterComponent {
       }
     );
   }
+  loadMore() {
+    this.updateFilteredArticles(this.transformSearchOptions());
+  }
 
   async updateFilteredArticles(toSearch: any) {
     try {
       const resp: Array<Articles> = await this.srv.FilterArticles(toSearch);
-      this.filteredArticles = resp;
+      if (resp.length == 0) {
+        this.noMoreArticles = true;
+        return;
+      }
+      this.filteredArticles = this.filteredArticles.concat(resp);
+      this.lastArticle+=SEARCH_LIMIT;
     } catch (error) {
       console.error('Erreur lors de la récupération des articles:', error);
     }
@@ -76,7 +97,9 @@ export class FilterComponent {
       "Prix": this.searchCriteria.priceMin && this.searchCriteria.priceMax ? [this.searchCriteria.priceMin*100, this.searchCriteria.priceMax*100]: undefined,
       "Tags": this.searchCriteria.tags ? this.searchCriteria.tags.split(',').map(tag => tag.trim()): undefined,
       "Marque": this.searchCriteria.marque,
-      Limit: 20
+      "TrierPar": this.searchCriteria.trierpar,
+      Limit: SEARCH_LIMIT,
+      Offset: this.lastArticle
     }
   }
 
@@ -95,7 +118,8 @@ export class FilterComponent {
       priceMax: prices[1],
       nom: !!this.searchCriteria.nom ? this.searchCriteria.nom : undefined,
       marque: !!this.searchCriteria.marque ? this.searchCriteria.marque : undefined,
-      tags: !!this.searchCriteria.tags ? this.searchCriteria.tags : undefined
+      tags: !!this.searchCriteria.tags ? this.searchCriteria.tags : undefined,
+      trierpar: !!this.searchCriteria.trierpar ? this.searchCriteria.trierpar : undefined
     }
   }
 }

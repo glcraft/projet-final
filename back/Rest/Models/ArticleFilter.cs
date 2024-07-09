@@ -13,5 +13,6 @@ namespace Rest.Models
         public string Marque { get; set; }
         public int? Offset;
         public int? Limit;
+        public string TrierPar { get; set; }
     }
 }

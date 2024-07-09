@@ -73,10 +73,36 @@ namespace Rest.Controllers
             var result = ctx.AsEnumerable();
             //filtrer par tags
             if (filter.Tags != null && filter.Tags.Any())
-                result = result.Where(a => a.Tags.Any(t => filter.Tags.Select(tf => tf.ToLower()).Contains(t.ToLower())));
+            {
+                Func<bool, Func<Articles, bool>> predFilter = (isExclusive) => {
+                    var tags = filter.Tags.Where(tag => tag != null && (tag.Length > 0) && (tag.First() == '-' ^ !isExclusive));
+                    if (isExclusive)
+                        tags = tags.Select(tag => tag.Substring(1));
+                    if (!tags.Any())
+                        return article => true;
+
+                    return article => article.Tags.Any(t => tags.Select(tf => tf.ToLower()).Contains(t.ToLower())) ^ isExclusive;
+                };
+                result = result.Where(predFilter(false)).Where(predFilter(true));
+            }
 
             //trier
-            result = result.OrderBy(a => a.nom);
+            switch (filter.TrierPar)
+            {
+                case "id":
+                    result = result.OrderBy(a => a.id);
+                    break;
+                case "prix":
+                    result = result.OrderBy(a => a.prix);
+                    break;
+                case "date_ajout":
+                    result = result.OrderBy(a => a.date_dajout);
+                    break;
+                case "nom":
+                default:
+                    result = result.OrderBy(a => a.nom);
+                    break;
+            }
 
             //prendre à partir de...
             if (filter.Offset != null)
