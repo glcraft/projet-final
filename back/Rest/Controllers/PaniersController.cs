@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using static Rest.Models.PanierTransfert;
 
 namespace Rest.Controllers
 {
@@ -54,6 +55,32 @@ namespace Rest.Controllers
         {
             var tokenData = GetData();
             return new ProjetFinalEntities().Paniers.Where(p => p.id_client == tokenData.Id);
+        }
+
+        [HttpGet]
+        [Route("api/paniers/client")]
+        public IHttpActionResult GetPaniers()
+        {
+            var tokenData = GetData(); 
+            var ctx = new ProjetFinalEntities();
+            var paniers = ctx.Paniers
+                            .Where(p => p.id_client == tokenData.Id)
+                            .Select(p => new PanierThrow
+                            {
+                                Id = p.id,
+                                DateTime = p.datetime,
+                                Lignes = p.PanierLignes.Select(l => new PanierLigneThrow
+                                {
+                                    IdArticle = l.id_article,
+                                    Quantite = l.quantite
+                                }).ToList()
+                            })
+                            .ToList();
+
+            if (paniers == null || !paniers.Any())
+                return NotFound();
+
+            return Ok(paniers);
         }
         //public void Delete(int id)
         //{

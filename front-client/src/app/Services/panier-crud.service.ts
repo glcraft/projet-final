@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Panier } from '@app/Models/panier';
 import { environment as env } from 'src/environment/environment';
 import { PanierligneCrudService } from './panierligne-crud.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,8 @@ export class PanierCrudService {
     return this.http.get<Panier>(`${env.baseDomainApi}/api/panier/${id}`).toPromise().catch();
   }
 
-  GetAllPaniersByIdClient(idClient: number)
+  GetAllPaniersByClient() : Observable<any[]>
   {
-    return this.http.get<Array<Panier>>(`${env.baseDomainApi}/api/panier?id_client${idClient}`).toPromise().catch();
+    return this.http.get<any[]>(`${env.baseDomainApi}/api/paniers/client`);
   }
 }
