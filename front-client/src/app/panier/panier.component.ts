@@ -27,6 +27,11 @@ export class PanierComponent implements OnInit {
   ngOnInit(): void {
     this.panier = this.panierService.getPanier();
     this.setArticlesDuPanier();
+    if (this.panier.lignes.length === 0) {
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 5000); // Redirect after 5 seconds
+    }
   }
  // tableau d'articles du panier er calcul du total du panier
   setArticlesDuPanier() {
