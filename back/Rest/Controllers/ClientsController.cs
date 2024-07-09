@@ -63,6 +63,9 @@ namespace Rest.Controllers
         {
             var tokenData = GetData();
             var ctx = new ProjetFinalEntities();
+            var client = ctx.Clients.Find(tokenData.Id);
+            if (!client.ChangePassword(data.old, data.@new))
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
             ctx.Entry(client).State = System.Data.Entity.EntityState.Modified;
             ctx.SaveChanges();
         }
